@@ -6,3 +6,4 @@ Muutamia vihjeitä projektin alkuun [täällä](https://github.com/ohjelmistotuo
 
 ## Backlog
 Backlog löytyy täältä -> [backlog](https://docs.google.com/spreadsheets/d/1EQwYgxdFO3TrHe9c7N8aJtbnicHo_mB4gMRst7pz7TI/edit?gid=860632009#gid=860632009).
+Sprintin backlog -> [sprint backlog](https://docs.google.com/spreadsheets/d/1EQwYgxdFO3TrHe9c7N8aJtbnicHo_mB4gMRst7pz7TI/edit?gid=860632009#gid=860632009).
