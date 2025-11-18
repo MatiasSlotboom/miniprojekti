@@ -29,3 +29,8 @@ Open And Configure Browser
 Reset Citations
     Go To  ${RESET_URL}
 
+Go To Home Page
+    Go to  ${HOME_URL}
+
+Create Citation Page Should Be Open
+    Title Should Be  Create a new citation
