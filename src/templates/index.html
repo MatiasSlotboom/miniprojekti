@@ -6,17 +6,13 @@ Todo app
 
 {% block body %}
 
-<h2>Todo app</h2>
-
-<div>
-  things still unfinished: {{ unfinished }}
-</div>
+<h2>Citation app</h2>
 
 <ul>
   {% for citation in citations %}
     <li style="display: flex">
       <div>
-        {{ citation }} 
+        {{ citation.title }} by {{ citation.author }}, dated ({{ citation.date }})
       </div>
     </li>
   {% endfor %}

@@ -7,7 +7,7 @@ from util import validate_citation
 @app.route("/")
 def index():
     citations = get_citations()
-    unfinished = len([citation for citation in citations if not citation.done])
+    unfinished = len([citation for citation in citations])
     return render_template("index.html", citations=citations, unfinished=unfinished) 
 
 @app.route("/new_citation")
