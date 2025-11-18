@@ -19,10 +19,13 @@ def todo_creation():
     title = request.form.get("title")
     author = request.form.get("author")
     date = request.form.get("date")
+    print(f"Received citation: {title}, {author}, {date}")
 
     try:
         validate_citation(title, author, date)
+        print(f"In the middle of citation: {title}, {author}, {date}")
         create_citation(title, author, date)
+        print(f"Created citation: {title}, {author}, {date}")
         return redirect("/")
     except Exception as error:
         flash(str(error))
