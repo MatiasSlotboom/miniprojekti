@@ -13,22 +13,17 @@ Todo app
 </div>
 
 <ul>
-  {% for todo in todos %}
+  {% for citation in citations %}
     <li style="display: flex">
       <div>
-        {{ todo }} 
+        {{ citation }} 
       </div>
-      {% if not todo.done %}
-        <form action="/toggle_todo/{{ todo.id }}" method="post" style="margin-left: 10px;">
-          <button type="submit">mark as done</button>
-        </form>
-      {% endif %}
     </li>
   {% endfor %}
 </ul>
 
 <div>
-  <a href="/new_todo">Create new todo</a>
+  <a href="/new_citation">Create new citation</a>
 </div>
 
 {% endblock %}
