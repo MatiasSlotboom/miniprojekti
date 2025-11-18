@@ -6,9 +6,7 @@ from util import validate_todo
 
 @app.route("/")
 def index():
-    todos = get_todos()
-    unfinished = len([todo for todo in todos if not todo.done])
-    return render_template("index.html", todos=todos, unfinished=unfinished) 
+    return render_template("index.html") 
 
 @app.route("/new_todo")
 def new():
@@ -25,11 +23,6 @@ def todo_creation():
     except Exception as error:
         flash(str(error))
         return  redirect("/new_todo")
-
-@app.route("/toggle_todo/<todo_id>", methods=["POST"])
-def toggle_todo(todo_id):
-    set_done(todo_id)
-    return redirect("/")
 
 # testausta varten oleva reitti
 if test_env:
