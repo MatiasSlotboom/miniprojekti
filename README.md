@@ -9,6 +9,12 @@ Backlog löytyy täältä -> [backlog](https://docs.google.com/spreadsheets/d/1E
 Sprintin backlog -> [sprint backlog](https://docs.google.com/spreadsheets/d/1EQwYgxdFO3TrHe9c7N8aJtbnicHo_mB4gMRst7pz7TI/edit?gid=860632009#gid=860632009).
 
 ## Sovelluksen asennus- ja käyttöohje
+Lisää sovelluksen juureen .env-tiedosto, jonka sisältö on
+```
+DATABASE_URL=postgresql://xxx
+TEST_ENV=true
+SECRET_KEY=satunnainen_merkkijono
+```
 Asenna sovelluksen riippuvuudet:
 ```
 $ poetry install
@@ -33,4 +39,5 @@ Robot-testit voi suorittaa komennolla:
 ```
 $ robot src/story_tests
 ```
+## Definition of done
 
