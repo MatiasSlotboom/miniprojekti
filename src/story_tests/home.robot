@@ -1,7 +1,7 @@
 *** Settings ***
 Resource  resource.robot
 Suite Setup      Open And Configure Browser
-Suite Teardown   Close Browser
+Suite Teardown   Reset And Close Browser
 Test Setup       Reset Citations Create Test Citation And Go To Home Page
 
 *** Test Cases ***
@@ -19,3 +19,7 @@ Reset Citations Create Test Citation And Go To Home Page
     Reset Citations
     Create Test Citation
     Go To Home Page
+
+Reset And Close Browser
+    Reset Citations
+    Close Browser
