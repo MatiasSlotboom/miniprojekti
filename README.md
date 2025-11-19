@@ -36,6 +36,7 @@ $ robot src/story_tests
 ```
 
 ## Definition of done
+- [x] Sprintin tavoitteet on saavutettu.
 - [x] Koodi on siistiä ja ymmärrettävää.
 - [x] Sovellus ei aiheuta virheilmoituksia normaalissa käytössä.
 - [x] Testit menevät läpi ja ne suoritetaan onnistuneesti GitHub Actionsissa.
