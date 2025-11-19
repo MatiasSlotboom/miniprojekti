@@ -7,6 +7,7 @@ ${DELAY}      0.5 seconds
 ${HOME_URL}   http://${SERVER}
 ${RESET_URL}  http://${SERVER}/reset_db
 ${CREATE_TEST_URL}  http://${SERVER}/create_test_citation
+${CREATE_NEW_URL}  http://${SERVER}/new_citation
 ${BROWSER}    chrome
 ${HEADLESS}   false
 
@@ -32,6 +33,9 @@ Reset Citations
 
 Go To Home Page
     Go to  ${HOME_URL}
+
+Go To Create Citation Page
+    Go To  ${CREATE_NEW_URL}
 
 Create Test Citation
     Go to  ${CREATE_TEST_URL}
