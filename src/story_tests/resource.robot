@@ -6,6 +6,7 @@ ${SERVER}     localhost:5001
 ${DELAY}      0.5 seconds
 ${HOME_URL}   http://${SERVER}
 ${RESET_URL}  http://${SERVER}/reset_db
+${CREATE_TEST_URL}  http://${SERVER}/create_test_citation
 ${BROWSER}    chrome
 ${HEADLESS}   false
 
@@ -31,6 +32,9 @@ Reset Citations
 
 Go To Home Page
     Go to  ${HOME_URL}
+
+Create Test Citation
+    Go to  ${CREATE_TEST_URL}
 
 Create Citation Page Should Be Open
     Title Should Be  Create a new citation

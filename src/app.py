@@ -37,3 +37,9 @@ if test_env:
     def reset_database():
         reset_db()
         return jsonify({ 'message': "db reset" })
+    
+    @app.route("/create_test_citation")
+    def create_test_citation():
+        create_citation("Testilähde", "Testitekijä", "1900")
+        return redirect("/")
+        
