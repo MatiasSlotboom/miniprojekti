@@ -6,7 +6,7 @@ Create a new citation
 
 {% block body %}
 
-<h2>Create a new citation</h2>
+<h1 class="mb-3">Create a new citation</h2>
 
 {% with messages = get_flashed_messages() %}
   {% if messages %}
@@ -24,9 +24,11 @@ Create a new citation
   <input type="text" name="author" placeholder="Author">
   <input type="text" name="date" placeholder="Date">
   <br>
-  <button type="submit">
-    Add citation
-  </button>
+  <div class="d-flex justify-content-end mt-2">
+    <button class="btn btn-primary" type="submit">
+      Add citation
+    </button>
+  </div>
 </form>
 
 {% endblock %}

@@ -6,20 +6,33 @@ Citation app
 
 {% block body %}
 
-<h2>Citation app</h2>
+<h1 class="mb-3">Citation app</h2>
 
-<ul>
-  {% for citation in citations %}
-    <li style="display: flex">
-      <div>
-        {{ citation.title }} by {{ citation.author }}, dated ({{ citation.date }})
-      </div>
-    </li>
-  {% endfor %}
-</ul>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for citation in citations %}
+      <tr class="table-active">
+        <th scope="row">{{ loop.index }}</th>
+        <td>{{ citation.title }}</td>
+        <td>{{ citation.author }}</td>
+        <td>{{ citation.date }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
-<div>
-  <a href="/new_citation">Create new citation</a>
+<div class="d-flex justify-content-end mt-2">
+  <button type="button" class="btn btn-primary" onclick="window.location.href='/new_citation'">
+    Create new citation
+  </button>
 </div>
 
 {% endblock %}
