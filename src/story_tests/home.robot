@@ -6,12 +6,14 @@ Test Setup       Reset Citations Create Test Citation And Go To Home Page
 
 *** Test Cases ***
 
-Click Create Citation Link
-    Click Link  Create new citation
+Click Create Citation Button
+    Click Button  Create new citation
     Create Citation Page Should Be Open
 
 One Citation Shows Up
-    Page Should Contain  dated
+    Page Should Contain  Testilähde
+    Page Should Contain  Testitekijä
+    Page Should Contain  1900
 
 *** Keywords ***
 

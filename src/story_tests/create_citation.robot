@@ -8,37 +8,48 @@ Test Setup       Reset Citations And Go To Home Page
 
 Create Citation With Everything Empty
     Go To Create Citation Page
-    Click Button  Add citation
     Page Should Contain  Citation fields cannot be empty
+    Element Should Be Disabled  id=submit_button
+
+Create Valid Citation
+    Go To Create Citation Page
+    Input Text  locator=title  text=testi_title
+    Input Text  locator=author  text=testi_author
+    Input Text  locator=date  text=1945
+    Element Should Be Enabled  id=submit_button
+    Click Button  Add citation
+    Page Should Contain  testi_title
+    Page Should Contain  testi_author
+    Page Should Contain  1945
 
 Create Citation With Title Empty
     Go To Create Citation Page
     Input Text  locator=author  text=testi_author
     Input Text  locator=date  text=2020
-    Click Button  Add citation
     Page Should Contain  Citation fields cannot be empty
+    Element Should Be Disabled  id=submit_button
 
 Create Citation With Author Empty
     Go To Create Citation Page
     Input Text  locator=title  text=testi_title
     Input Text  locator=date  text=2020
-    Click Button  Add citation
     Page Should Contain  Citation fields cannot be empty
+    Element Should Be Disabled  id=submit_button
 
 Create Citation With Date Empty
     Go To Create Citation Page
     Input Text  locator=title  text=testi_title
     Input Text  locator=author  text=testi_author
-    Click Button  Add citation
     Page Should Contain  Citation fields cannot be empty
+    Element Should Be Disabled  id=submit_button
 
 Create Citation With Invalid Date
     Go To Create Citation Page
     Input Text  locator=title  text=testi_title
     Input Text  locator=author  text=testi_author
     Input Text  locator=date  text=testi_date
-    Click Button  Add citation
     Page Should Contain  Date must be a number
+    Element Should Be Disabled  id=submit_button
 
 *** Keywords ***
 

@@ -20,15 +20,56 @@ Create a new citation
 
 <form action="/create_citation" method="post">
   <label for="content">Citation:</label>
-  <input type="text" name="title" placeholder="Title">
-  <input type="text" name="author" placeholder="Author">
-  <input type="text" name="date" placeholder="Date">
+  <input id="title" type="text" name="title" placeholder="Title">
+  <input id="author" type="text" name="author" placeholder="Author">
+  <input id="date" type="text" name="date" placeholder="Date">
+  <div id="error_message" style="color: red; margin-top: 8px;"></div>
   <br>
   <div class="d-flex justify-content-end mt-2">
-    <button class="btn btn-primary" type="submit">
+    <button id="submit_button" class="btn btn-primary" type="submit" disabled>
       Add citation
     </button>
   </div>
 </form>
 
+<script>
+  const title = document.getElementById("title");
+  const author = document.getElementById("author");
+  const date = document.getElementById("date");
+  const button = document.getElementById("submit_button");
+  const errorbox = document.getElementById("error_message")
+
+  function validate() {
+    const t = title.value.trim();
+    const a = author.value.trim();
+    const d = date.value.trim();
+
+    errorbox.textContent = ""
+    button.disabled = true;
+
+    if (!t || !a || !d) {
+      errorbox.textContent = "Citation fields cannot be empty";
+      return;
+    }
+
+    const num = Number(d);
+    if (isNaN(num)) {
+      errorbox.textContent = "Date must be a number";
+      return;
+    }
+
+    if (num < 0) {
+      errorbox.textContent = "Date must be a positive number";
+      return;
+    }
+
+    button.disabled = false;
+  }
+
+  title.addEventListener("input", validate);
+  author.addEventListener("input", validate);
+  date.addEventListener("input", validate);
+
+  validate();
+</script>
 {% endblock %}
