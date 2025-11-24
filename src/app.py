@@ -1,8 +1,9 @@
-from flask import redirect, render_template, request, jsonify, flash
+from flask import redirect, render_template, request, jsonify, flash, Response
 from db_helper import reset_db
 from repositories.citation_repository import get_citations, create_citation
 from config import app, test_env
 from util import validate_citation
+from datetime import datetime, date
 
 @app.route("/")
 def index():
@@ -30,6 +31,29 @@ def todo_creation():
     except Exception as error:
         flash(str(error))
         return redirect("/new_citation")
+    
+@app.route("/download_bib")
+def download_bib():
+    citations = get_citations()
+    bib_entries = []
+    for c in citations:
+        if isinstance(c.date, (datetime, date)):
+            year = c.date.year
+        else:
+            year = str(c.date)[:4]
+        entry = f"""@misc{{{c.id},
+  title = {{{c.title}}},
+  author = {{{c.author}}},
+  year = {{{year}}},
+}}"""
+        bib_entries.append(entry)
+    bib_content = "\n\n".join(bib_entries)
+
+    return Response(
+        bib_content,
+        mimetype="text/plain",
+        headers={"Content-Disposition": "attachment; filename=references.bib"}
+    )
 
 # testausta varten oleva reitti
 if test_env:
@@ -42,4 +66,3 @@ if test_env:
     def create_test_citation():
         create_citation("Testilähde", "Testitekijä", "1900")
         return redirect("/")
-        
