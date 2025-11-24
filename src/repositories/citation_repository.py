@@ -1,13 +1,13 @@
-from config import db
-from sqlalchemy import text
 from datetime import date
+from sqlalchemy import text
+from config import db
 
 from entities.citation import Citation
 
 def get_citations():
     result = db.session.execute(text("SELECT id, title, author, date FROM citations"))
     citations = result.fetchall()
-    return [Citation(citation[0], citation[1], citation[2], citation[3]) for citation in citations] 
+    return [Citation(citation[0], citation[1], citation[2], citation[3]) for citation in citations]
 
 def create_citation(title, author, date_value):
     sql = text("INSERT INTO citations (title, author, date) VALUES (:title, :author, :date)")

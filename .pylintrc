@@ -19,6 +19,8 @@ disable=raw-checker-failed,
 
 [FORMAT]
 
+max-line-length=120
+
 [REFACTORING]
 
 [DESIGN]

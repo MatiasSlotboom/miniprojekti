@@ -1,15 +1,15 @@
+from datetime import datetime, date
 from flask import redirect, render_template, request, jsonify, flash, Response
 from db_helper import reset_db
 from repositories.citation_repository import get_citations, create_citation
 from config import app, test_env
 from util import validate_citation
-from datetime import datetime, date
 
 @app.route("/")
 def index():
     citations = get_citations()
     unfinished = len([citation for citation in citations])
-    return render_template("index.html", citations=citations, unfinished=unfinished) 
+    return render_template("index.html", citations=citations, unfinished=unfinished)
 
 @app.route("/new_citation")
 def new():
@@ -31,7 +31,7 @@ def todo_creation():
     except Exception as error:
         flash(str(error))
         return redirect("/new_citation")
-    
+
 @app.route("/download_bib")
 def download_bib():
     citations = get_citations()
@@ -61,7 +61,7 @@ if test_env:
     def reset_database():
         reset_db()
         return jsonify({ 'message': "db reset" })
-    
+
     @app.route("/create_test_citation")
     def create_test_citation():
         create_citation("Testilähde", "Testitekijä", "1900")
