@@ -42,16 +42,17 @@ def download_bib():
     citations = get_citations()
     bib_entries = []
     for c in citations:
-        if isinstance(c.date, (datetime, date)):
-            year = c.date.year
-        else:
-            year = str(c.date)[:4]
-        entry = f"""@misc{{{c.id},
-            title = {{{c.title}}},
-            author = {{{c.author}}},
-            year = {{{year}}},
-            }}"""
+
+        entry = (
+            f"@misc{{{c.id},\n"
+            f"  title = {{{c.title}}},\n"
+            f"  author = {{{c.author}}},\n"
+            f"  year = {{{str(c.date)}}},\n"
+            f"}}"
+        )
+
         bib_entries.append(entry)
+
     bib_content = "\n\n".join(bib_entries)
 
     return Response(
