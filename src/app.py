@@ -66,3 +66,9 @@ if test_env:
     def create_test_citation():
         create_citation("Testilähde", "Testitekijä", "1900")
         return redirect("/")
+    
+    @app.route("/create_two_test_citations")
+    def create_two_test_citations():
+        create_citation("Testilähde1", "Testitekijä1", "1901")
+        create_citation("Testilähde2", "Testitekijä2", "1902")
+        return redirect("/")

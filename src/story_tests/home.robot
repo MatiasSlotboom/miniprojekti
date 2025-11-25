@@ -15,11 +15,26 @@ One Citation Shows Up
     Page Should Contain  Testitekijä
     Page Should Contain  1900
 
+Two Citations Show Up
+    Reset Citations Create Two Test Citations And Go To Home Page
+    Page Should Contain  Testilähde1
+    Page Should Contain  Testitekijä1
+    Page Should Contain  1901
+
+    Page Should Contain  Testilähde2
+    Page Should Contain  Testitekijä2
+    Page Should Contain  1902
+
 *** Keywords ***
 
 Reset Citations Create Test Citation And Go To Home Page
     Reset Citations
     Create Test Citation
+    Go To Home Page
+
+Reset Citations Create Two Test Citations And Go To Home Page
+    Reset Citations
+    Create Two Test Citations
     Go To Home Page
 
 Reset And Close Browser

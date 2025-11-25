@@ -7,6 +7,7 @@ ${DELAY}      0.5 seconds
 ${HOME_URL}   http://${SERVER}
 ${RESET_URL}  http://${SERVER}/reset_db
 ${CREATE_TEST_URL}  http://${SERVER}/create_test_citation
+${CREATE_TWO_TESTS_URL}  http://${SERVER}/create_two_test_citations
 ${CREATE_NEW_URL}  http://${SERVER}/new_citation
 ${BROWSER}    chrome
 ${HEADLESS}   false
@@ -39,6 +40,9 @@ Go To Create Citation Page
 
 Create Test Citation
     Go to  ${CREATE_TEST_URL}
+
+Create Two Test Citations
+    Go To  ${CREATE_TWO_TESTS_URL}
 
 Create Citation Page Should Be Open
     Title Should Be  Create a new citation
