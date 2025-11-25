@@ -48,7 +48,7 @@ Create Citation With Invalid Date
     Input Text  locator=title  text=testi_title
     Input Text  locator=author  text=testi_author
     Input Text  locator=date  text=testi_date
-    Page Should Contain  Date must be a number
+    Page Should Contain  Year must be between 1000 and 2025!
     Element Should Be Disabled  id=submit_button
 
 *** Keywords ***

@@ -42,10 +42,10 @@ def download_bib():
         else:
             year = str(c.date)[:4]
         entry = f"""@misc{{{c.id},
-  title = {{{c.title}}},
-  author = {{{c.author}}},
-  year = {{{year}}},
-}}"""
+            title = {{{c.title}}},
+            author = {{{c.author}}},
+            year = {{{year}}},
+            }}"""
         bib_entries.append(entry)
     bib_content = "\n\n".join(bib_entries)
 
