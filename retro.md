@@ -2,9 +2,11 @@ Method: Glad, Mad, Sad
 Sprint 2 retrosprective:
 
 - Glad:
-    - Nopeasti saatin toimivan pohjan.
+    - Nopeasti saatin toimiva pohja
     - Hyvä ajanhallinta
 - Mad:
     - Selkeä tehtävänjako tarpeellinen
 - Sad:
-    -Paremmin valmistautua esitykseen
+    - Pitää valmistautua paremmin esitykseen
+
+Kehitystoimenpiteiksi valittiin selkeämpi tehtävänjako ja parempi valmistautuminen esitykseen.
