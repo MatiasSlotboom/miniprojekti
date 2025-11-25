@@ -22,7 +22,7 @@ Create a new citation
   <label for="content">Citation:</label>
   <input id="title" type="text" name="title" maxlength="100" placeholder="Title" required>
   <input id="author" type="text" name="author" maxlength="100" placeholder="Author" required>
-  <input id="date" type="text" name="date" maxlength="4" pattern="[1-2]{1}[0-9]{3}" placeholder="Year" required>
+  <input id="date" type="text" name="date" maxlength="4" placeholder="Year" required>
   <div id="error_message" style="color: red; margin-top: 8px;"></div>
   <br>
   <div class="d-flex justify-content-end mt-2">
@@ -54,8 +54,8 @@ Create a new citation
 
     const num = Number(d);
     const currentYear = new Date().getFullYear()
-    if (isNaN(num) || num < 1000 || num > currentYear) {
-      errorbox.textContent = `Year must be between 1000 and ${currentYear}!`;
+    if (isNaN(num) || num < 1 || num > currentYear || String(d).startsWith("0")) {
+      errorbox.textContent = `Year must be between 1 and ${currentYear}!`;
       return;
     }
 

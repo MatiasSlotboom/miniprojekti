@@ -24,6 +24,11 @@ Citation app
         <td>{{ citation.title }}</td>
         <td>{{ citation.author }}</td>
         <td>{{ citation.date }}</td>
+        <td>
+          <form action="{{ url_for('remove_citation', citation_id=citation.id) }}" method="POST" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
       </tr>
     {% endfor %}
   </tbody>

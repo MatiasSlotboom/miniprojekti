@@ -25,6 +25,17 @@ Two Citations Show Up
     Page Should Contain  Testitekijä2
     Page Should Contain  1902
 
+Delete Citation
+    Reset Citations Create Test Citation And Go To Home Page
+    Page Should Contain  Testilähde
+    Page Should Contain  Testitekijä
+    Page Should Contain  1900
+
+    Click Button  Delete
+    Page Should Not Contain  Testilähde
+    Page Should Not Contain  Testitekijä
+    Page Should Not Contain  1900
+
 *** Keywords ***
 
 Reset Citations Create Test Citation And Go To Home Page

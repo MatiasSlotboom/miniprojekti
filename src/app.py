@@ -1,7 +1,7 @@
 from datetime import datetime, date
 from flask import redirect, render_template, request, jsonify, flash, Response
 from db_helper import reset_db
-from repositories.citation_repository import get_citations, create_citation
+from repositories.citation_repository import get_citations, create_citation, delete_citation
 from config import app, test_env
 from util import validate_citation
 
@@ -31,6 +31,11 @@ def todo_creation():
     except Exception as error:
         flash(str(error))
         return redirect("/new_citation")
+
+@app.route("/remove_citation/<int:citation_id>", methods=["POST"])
+def remove_citation(citation_id):
+    delete_citation(citation_id)
+    return redirect("/")
 
 @app.route("/download_bib")
 def download_bib():
