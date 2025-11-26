@@ -6,7 +6,9 @@ Citation app
 
 {% block body %}
 
-<h1 class="mb-3">Citation app</h2>
+<h1 class="mb-3">Citation app</h1>
+
+<div id="copy-alert"></div>
 
 <table class="table">
   <thead>
@@ -41,6 +43,42 @@ Citation app
   <button type="button" class="btn btn-primary ms-2" onclick="window.location.href='/download_bib'" {% if citations|length == 0 %} disabled {% endif %}>
     Download .bib
   </button>
+  <button type="button" class="btn btn-primary ms-2" onclick="copyBibtex()" {% if citations|length == 0 %} disabled {% endif %}>
+    Copy to clipboard
+  </button>
 </div>
+
+<script>
+  async function copyBibtex() {
+    try {
+      const response = await fetch("/copy_bib");
+      if (!response.ok) {
+        showCopyAlert("Failed to fetch BibTex content.");
+        return;
+      }
+
+      const text = await response.text();
+      await navigator.clipboard.writeText(text);
+
+      showCopyAlert("Bibtex copied to clipboard");      
+    } catch (err) {
+      console.error(err);
+      showCopyAlert("Copy to clipboard failed, browser stuff")
+    }
+  }
+
+  function showCopyAlert(message) {
+    const alertDiv = document.getElementById("copy-alert");
+    alertDiv.innerHTML = `
+      <div class="alert alert-primary" role="alert">
+        ${message}
+      </div>
+    `;
+
+    setTimeout(() => {
+      alertDiv.innerHTML = "";
+    }, 3000);
+  }
+</script>
 
 {% endblock %}

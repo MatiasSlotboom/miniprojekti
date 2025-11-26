@@ -5,6 +5,23 @@ from repositories.citation_repository import get_citations, create_citation, del
 from config import app, test_env
 from util import validate_citation
 
+def bibcontent():
+    citations = get_citations()
+    bib_entries = []
+    for c in citations:
+
+        entry = (
+            f"@misc{{{c.id},\n"
+            f"  title = {{{c.title}}},\n"
+            f"  author = {{{c.author}}},\n"
+            f"  year = {{{str(c.date)}}},\n"
+            f"}}"
+        )
+
+        bib_entries.append(entry)
+
+    return "\n\n".join(bib_entries)
+
 @app.route("/")
 def index():
     citations = get_citations()
@@ -39,26 +56,16 @@ def remove_citation(citation_id):
 
 @app.route("/download_bib")
 def download_bib():
-    citations = get_citations()
-    bib_entries = []
-    for c in citations:
-
-        entry = (
-            f"@misc{{{c.id},\n"
-            f"  title = {{{c.title}}},\n"
-            f"  author = {{{c.author}}},\n"
-            f"  year = {{{str(c.date)}}},\n"
-            f"}}"
-        )
-
-        bib_entries.append(entry)
-
-    bib_content = "\n\n".join(bib_entries)
-
     return Response(
-        bib_content,
+        bibcontent(),
         mimetype="text/plain",
         headers={"Content-Disposition": "attachment; filename=references.bib"}
+    )
+@app.route("/copy_bib")
+def copy_bib():
+    return Response(
+        bibcontent(),
+        mimetype="text/plain",
     )
 
 # testausta varten oleva reitti
