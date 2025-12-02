@@ -7,5 +7,5 @@ def validate_citation(title, author, date):
     try:
         if int(date) < 0:
             raise UserInputError("Date must be a positive number")
-    except ValueError:
-        raise UserInputError("Date must be a number")
+    except ValueError as error:
+        raise UserInputError("Date must be a number") from error

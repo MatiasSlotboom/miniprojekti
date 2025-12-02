@@ -1,4 +1,3 @@
-from datetime import datetime, date
 from flask import redirect, render_template, request, jsonify, flash, Response
 from db_helper import reset_db
 from repositories.citation_repository import get_citations, create_citation, delete_citation
@@ -25,7 +24,7 @@ def bibcontent():
 @app.route("/")
 def index():
     citations = get_citations()
-    unfinished = len([citation for citation in citations])
+    unfinished = len(list(citations))
     return render_template("index.html", citations=citations, unfinished=unfinished)
 
 @app.route("/new_citation")
@@ -79,7 +78,7 @@ if test_env:
     def create_test_citation():
         create_citation("Testilähde", "Testitekijä", "1900")
         return redirect("/")
-    
+
     @app.route("/create_two_test_citations")
     def create_two_test_citations():
         create_citation("Testilähde1", "Testitekijä1", "1901")
