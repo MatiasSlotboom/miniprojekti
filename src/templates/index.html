@@ -43,7 +43,7 @@ Citation app
   <button type="button" class="btn btn-primary ms-2" onclick="window.location.href='/download_bib'" {% if citations|length == 0 %} disabled {% endif %}>
     Download .bib
   </button>
-  <button type="button" class="btn btn-primary ms-2" onclick="copyBibtex()" {% if citations|length == 0 %} disabled {% endif %}>
+  <button id="copy_all_button" type="button" class="btn btn-primary ms-2" onclick="copyBibtex()" {% if citations|length == 0 %} disabled {% endif %}>
     Copy to clipboard
   </button>
 </div>
