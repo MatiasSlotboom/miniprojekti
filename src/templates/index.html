@@ -14,18 +14,18 @@ Citation app
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Title</th>
-      <th scope="col">Author</th>
-      <th scope="col">Date</th>
+      <th scope="col">Citations</th>
     </tr>
   </thead>
   <tbody>
     {% for citation in citations %}
       <tr class="table-active">
         <th scope="row">{{ loop.index }}</th>
-        <td>{{ citation.title }}</td>
-        <td>{{ citation.author }}</td>
-        <td>{{ citation.date }}</td>
+        <td>
+          <a href="{{ url_for('show_citation', citation_id=citation.id) }}">
+            {{ citation.title }}
+          </a>
+        </td>
         <td>
           <form action="{{ url_for('remove_citation', citation_id=citation.id) }}" method="POST" style="display:inline;">
                 <button type="submit">Delete</button>

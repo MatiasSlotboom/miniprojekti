@@ -19,8 +19,6 @@ Create Valid Citation
     Element Should Be Enabled  id=submit_button
     Click Button  Add citation
     Page Should Contain  testi_title
-    Page Should Contain  testi_author
-    Page Should Contain  1945
 
 Create Citation With Title Empty
     Go To Create Citation Page

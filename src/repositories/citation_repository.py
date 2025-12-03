@@ -18,3 +18,8 @@ def delete_citation(citation_id):
     sql = text("DELETE FROM citations WHERE id = :id")
     db.session.execute(sql, { "id": citation_id })
     db.session.commit()
+
+def get_citation(citation_id):
+    sql = text("SELECT id, title, author, date FROM citations WHERE id = :id")
+    result = db.session.execute(sql, { "id": citation_id })
+    return result.fetchone()

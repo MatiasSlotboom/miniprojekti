@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, jsonify, flash, Response
 from db_helper import reset_db
-from repositories.citation_repository import get_citations, create_citation, delete_citation
+from repositories.citation_repository import get_citations, create_citation, delete_citation, get_citation
 from config import app, test_env
 from util import validate_citation
 
@@ -66,6 +66,11 @@ def copy_bib():
         bibcontent(),
         mimetype="text/plain",
     )
+
+@app.route("/show_citation/<int:citation_id>")
+def show_citation(citation_id):
+    citation = get_citation(citation_id)
+    return render_template("show_citation.html", citation=citation)
 
 # testausta varten oleva reitti
 if test_env:

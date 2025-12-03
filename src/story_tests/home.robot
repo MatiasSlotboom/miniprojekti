@@ -12,29 +12,19 @@ Click Create Citation Button
 
 One Citation Shows Up
     Page Should Contain  Testilähde
-    Page Should Contain  Testitekijä
-    Page Should Contain  1900
 
 Two Citations Show Up
     Reset Citations Create Two Test Citations And Go To Home Page
     Page Should Contain  Testilähde1
-    Page Should Contain  Testitekijä1
-    Page Should Contain  1901
 
     Page Should Contain  Testilähde2
-    Page Should Contain  Testitekijä2
-    Page Should Contain  1902
 
 Delete Citation
     Reset Citations Create Test Citation And Go To Home Page
     Page Should Contain  Testilähde
-    Page Should Contain  Testitekijä
-    Page Should Contain  1900
 
     Click Button  Delete
     Page Should Not Contain  Testilähde
-    Page Should Not Contain  Testitekijä
-    Page Should Not Contain  1900
 
 *** Keywords ***
 

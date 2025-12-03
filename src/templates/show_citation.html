@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Shwo citation
+{% endblock %}
+
+{% block body %}
+
+<h1 class="mb-3">Citation app</h1>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul style="color: red;">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<div class="card">
+  <div class="card-header">
+    <h4 class="mb-0">Details</h4>
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><strong>Title:</strong> {{ citation.title }}</li>
+    <li class="list-group-item"><strong>Author:</strong> {{ citation.author }}</li>
+    <li class="list-group-item"><strong>Year:</strong> {{ citation.date.year }}</li>
+  </ul>
+</div>
+
+<div class="mt-3">
+  <a href="{{ url_for('index') }}" class="btn btn-secondary">Back</a>
+</div>
+
+{% endblock %}
