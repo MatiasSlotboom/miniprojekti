@@ -2,7 +2,7 @@ from flask import redirect, render_template, request, jsonify, flash, Response
 from db_helper import reset_db
 from repositories.citation_repository import get_citations, create_citation, delete_citation, get_citation
 from config import app, test_env
-from util import validate_citation
+from util import validate_citation, valid_citation_types
 
 def bibcontent():
     citations = get_citations()
@@ -10,7 +10,7 @@ def bibcontent():
     for c in citations:
 
         entry = (
-            f"@misc{{{c.id},\n"
+            f"@{c.type}{{{c.id},\n"
             f"  title = {{{c.title}}},\n"
             f"  author = {{{c.author}}},\n"
             f"  year = {{{str(c.date)}}},\n"
@@ -29,20 +29,21 @@ def index():
 
 @app.route("/new_citation")
 def new():
-    return render_template("new_citation.html")
+    return render_template("new_citation.html", citation_types=valid_citation_types)
 
 @app.route("/create_citation", methods=["POST"])
 def todo_creation():
     title = request.form.get("title")
     author = request.form.get("author")
     date = request.form.get("date")
-    print(f"Received citation: {title}, {author}, {date}")
+    citation_type = request.form.get("type", "misc")
+    print(f"Received citation: {title}, {author}, {date}, {citation_type}")
 
     try:
-        validate_citation(title, author, date)
-        print(f"In the middle of citation: {title}, {author}, {date}")
-        create_citation(title, author, date)
-        print(f"Created citation: {title}, {author}, {date}")
+        validate_citation(title, author, date, citation_type)
+        print(f"In the middle of citation: {title}, {author}, {date}, {citation_type}")
+        create_citation(title, author, date, citation_type)
+        print(f"Created citation: {title}, {author}, {date}, {citation_type}")
         return redirect("/")
     except Exception as error:
         flash(str(error))
