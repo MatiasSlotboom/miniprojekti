@@ -26,11 +26,6 @@ Citation app
             {{ citation.title }}
           </a>
         </td>
-        <td>
-          <form action="{{ url_for('remove_citation', citation_id=citation.id) }}" method="POST" style="display:inline;">
-                <button type="submit">Delete</button>
-            </form>
-        </td>
       </tr>
     {% endfor %}
   </tbody>
@@ -40,7 +35,7 @@ Citation app
   <button type="button" class="btn btn-primary" onclick="window.location.href='/new_citation'">
     Create new citation
   </button>
-  <button type="button" class="btn btn-primary ms-2" onclick="window.location.href='/download_bib'" {% if citations|length == 0 %} disabled {% endif %}>
+  <button type="button" class="btn btn-primary ms-2" onclick="window.location.href='/downloads'" {% if citations|length == 0 %} disabled {% endif %}>
     Download .bib
   </button>
   <button id="copy_all_button" type="button" class="btn btn-primary ms-2" onclick="copyBibtex()" {% if citations|length == 0 %} disabled {% endif %}>

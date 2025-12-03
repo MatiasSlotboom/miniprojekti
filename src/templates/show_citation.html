@@ -25,12 +25,13 @@ Show citation
 
   <ul class="list-group list-group-flush">
     <li class="list-group-item"><strong>Title:</strong> {{ citation.title }}</li>
+    <li class="list-group-item"><strong>Type:</strong> {{ citation.type }}</li>
     <li class="list-group-item"><strong>Author:</strong> {{ citation.author }}</li>
     <li class="list-group-item"><strong>Year:</strong> {{ citation.date }}</li>
   </ul>
 </div>
 
-<div class="mt-3">
+<div class="mt-3 d-flex gap-2">
   <a href="{{ url_for('index') }}" class="btn btn-secondary">Back</a>
   <button id="copy_bib_button" type="button" class="btn btn-primary ms-2" onclick="copyBibtex()">
     Copy to clipboard

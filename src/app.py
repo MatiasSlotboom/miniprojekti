@@ -122,7 +122,7 @@ def copy_bib_citation(citation_id):
     key = f"{safe_title}-{c.date}-{c.id}"
 
     entry = (
-        f"@misc{{{key},\n"
+        f"@{c.type}{{{key},\n"
         f"  title = {{{c.title}}},\n"
         f"  author = {{{c.author}}},\n"
         f"  year = {{{str(c.date)}}},\n"
