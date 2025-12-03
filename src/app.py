@@ -116,11 +116,27 @@ def show_citation(citation_id):
     print("got citation:", citation, "for id:", citation_id)
     return render_template("show_citation.html", citation=citation)
 
-@app.route("/edit_citation/<int:citation_id>")
+@app.route("/edit_citation/<int:citation_id>", methods=["get", "post"])
 def edit_citation(citation_id):
     citation = get_citation(citation_id)
-    print("got citation:", citation, "for id:", citation_id)
-    return render_template("edit_citation.html", citation=citation)
+
+    if request.method == "GET":
+        print("got citation:", citation, "for id:", citation_id)
+        return render_template("edit_citation.html", citation=citation, citation_types = valid_citation_types)
+    
+    if request.method == "POST":
+        title = request.form.get("title")
+        author = request.form.get("author")
+        date = request.form.get("date")
+        citation_type = request.form.get("type", "misc")
+        print(f"Received citation: {title}, {author}, {date}, {citation_type}")
+
+        try:
+            validate_citation(title, author, date, citation_type)
+            return redirect("/")
+        except Exception as error:
+            flash(str(error))
+            return redirect("/edit_citation/" + str(citation_id))
 
 @app.route("/copy_bib_citation/<int:citation_id>")
 def copy_bib_citation(citation_id):
