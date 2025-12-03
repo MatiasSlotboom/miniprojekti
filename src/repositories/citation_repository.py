@@ -20,6 +20,23 @@ def create_citation(title, author, date_value, citation_type):
     })
     db.session.commit()
 
+def update_citation(citation_id, title, author, date_value, citation_type):
+    sql = text("""UPDATE citations
+               SET title = :title,
+               author = :author,
+               date = :date,
+               type = :type
+               WHERE id = :id
+               """)
+    db.session.execute(sql, {
+        "id": citation_id,
+        "title": title,
+        "author": author,
+        "date": date(int(date_value), 1, 1),
+        "type": citation_type
+    })
+    db.session.commit()
+
 def delete_citation(citation_id):
     sql = text("DELETE FROM citations WHERE id = :id")
     db.session.execute(sql, { "id": citation_id })

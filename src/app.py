@@ -2,7 +2,7 @@ import re
 
 from flask import redirect, render_template, request, jsonify, flash, Response
 from db_helper import reset_db
-from repositories.citation_repository import get_citations, create_citation, delete_citation, get_citation
+from repositories.citation_repository import get_citations, create_citation, delete_citation, get_citation, update_citation
 from config import app, test_env
 from util import validate_citation, valid_citation_types
 
@@ -133,6 +133,7 @@ def edit_citation(citation_id):
 
         try:
             validate_citation(title, author, date, citation_type)
+            update_citation(citation_id, title, author, date, citation_type)
             return redirect("/")
         except Exception as error:
             flash(str(error))

@@ -22,7 +22,7 @@ Edit citation
   <label for="type">Type:</label>
   <select id="type" name="type" required>
     {% for citation_type in citation_types %}
-      <option value="{{ citation_type }}">{{ citation.type|capitalize }}</option>
+      <option value="{{ citation_type }}" {% if citation_type == citation.type %}selected{% endif %}>{{ citation_type|capitalize }}</option>
     {% endfor %}
   </select>
   <br><br>
