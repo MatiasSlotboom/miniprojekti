@@ -10,14 +10,14 @@ class TestDownloadBib(unittest.TestCase):
         pass
 
     def test_download_bib_fuction_called(self):
-        citations = [Citation(ANY, "test_title", "test_author", datetime(1234, 1, 1))]
+        citations = [Citation(ANY, "test_title", "test_author", datetime(1234, 1, 1), "misc")]
         bib_entries = []
         for c in citations:
             if isinstance(c.date, (datetime, date)):
                 year = c.date.year
             else:
                 year = str(c.date)[:4]
-            entry = f"""@misc{{{c.id},
+            entry = f"""@{c.type}{{{c.id},
     title = {{{c.title}}},
     author = {{{c.author}}},
     year = {{{year}}},

@@ -6,5 +6,5 @@ class TestCitationValidation(unittest.TestCase):
         pass
 
     def test_valid_length_does_not_raise_error(self):
-        validate_citation("Electronic Commerce", "Michael Merz", "1999")
+        validate_citation("Electronic Commerce", "Michael Merz", "1999", "book")
 
