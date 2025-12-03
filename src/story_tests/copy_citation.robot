@@ -19,6 +19,12 @@ Copy Citations To Clipboard With Two Citations Created
 Copy Citations To Clipboard With No Citations Created
     Element Should Be Disabled  id=copy_all_button
 
+Copy Single Citation To Clipboard
+    Create Test Citation And Go To Home Page
+    Click Link  Testilähde
+    Click Button  Copy to clipboard
+    Page Should Contain  Bibtex copied to clipboard
+
 *** Keywords ***
 
 Reset Citations And Go To Home Page
