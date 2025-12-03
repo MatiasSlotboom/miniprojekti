@@ -1,9 +1,10 @@
+import re
+
 from flask import redirect, render_template, request, jsonify, flash, Response
 from db_helper import reset_db
 from repositories.citation_repository import get_citations, create_citation, delete_citation, get_citation
 from config import app, test_env
 from util import validate_citation, valid_citation_types
-import re
 
 def titlefixer(title):
     title = re.sub(r'\s+', '_', title)
