@@ -13,6 +13,7 @@ Create Citation With Everything Empty
 
 Create Valid Citation
     Go To Create Citation Page
+    Select From List by Value  id=type  misc
     Input Text  locator=title  text=testi_title
     Input Text  locator=author  text=testi_author
     Input Text  locator=date  text=1945
@@ -48,6 +49,12 @@ Create Citation With Invalid Date
     Input Text  locator=date  text=testi_date
     Page Should Contain  Year must be between 1 and 2025!
     Element Should Be Disabled  id=submit_button
+
+Select Options in Citation Types
+    Go To Create Citation Page
+    Select From List By Value  id=type  book
+    Select From List By Index  id=type  0
+    Select From List By Label  id=type  Misc
 
 *** Keywords ***
 
