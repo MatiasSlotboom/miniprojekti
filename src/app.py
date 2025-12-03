@@ -3,23 +3,42 @@ from db_helper import reset_db
 from repositories.citation_repository import get_citations, create_citation, delete_citation, get_citation
 from config import app, test_env
 from util import validate_citation, valid_citation_types
+import re
 
-def bibcontent():
+def titlefixer(title):
+    title = re.sub(r'\s+', '_', title)
+    title = re.sub(r'[^0-9a-zA-Z_]', '', title)
+    return title
+
+def bibselector():
     citations = get_citations()
     bib_entries = []
+
     for c in citations:
+        safe_title = titlefixer(c.title)
+        key = f"{safe_title}-{c.date}-{c.id}"
 
         entry = (
-            f"@{c.type}{{{c.id},\n"
+            f"@misc{{{key},\n"
             f"  title = {{{c.title}}},\n"
             f"  author = {{{c.author}}},\n"
             f"  year = {{{str(c.date)}}},\n"
             f"}}"
         )
 
-        bib_entries.append(entry)
+        bib_entries.append({
+            "id": str(c.id),
+            "text": entry,
+            "title": c.title,
+            "author": c.author,
+            "date": str(c.date)
+        })
 
-    return "\n\n".join(bib_entries)
+    return bib_entries
+
+def bibcontent():
+    entries = bibselector()
+    return "\n\n".join(e["text"] for e in entries)
 
 @app.route("/")
 def index():
@@ -61,6 +80,28 @@ def download_bib():
         mimetype="text/plain",
         headers={"Content-Disposition": "attachment; filename=references.bib"}
     )
+
+@app.route("/downloads")
+def downloads():
+    entries = bibselector()
+    return render_template("downloads.html", entries=entries)
+
+@app.route("/download_selected", methods=["POST"])
+def download_selected():
+    selected = request.form.getlist("selected")
+    selected_ids = []
+    for item in selected:
+        selected_ids.extend(v.strip() for v in item.split(",") if v.strip())
+    entries = bibselector()
+    selected_entries = [e["text"] for e in entries if e["id"] in selected_ids]
+    output = "\n\n".join(selected_entries)
+
+    return Response(
+        output,
+        mimetype="text/plain",
+        headers={"Content-Disposition": "attachment; filename=references.bib"}
+    )
+
 @app.route("/copy_bib")
 def copy_bib():
     return Response(
