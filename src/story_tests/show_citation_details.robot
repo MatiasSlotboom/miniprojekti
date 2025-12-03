@@ -37,7 +37,3 @@ Reset Citations Create Test Citation And Go To Home Page
     Reset Citations
     Create Test Citation
     Go To Home Page
-
-Reset And Close Browser
-    Reset Citations
-    Close Browser

@@ -46,3 +46,7 @@ Create Two Test Citations
 
 Create Citation Page Should Be Open
     Title Should Be  Create a new citation
+
+Reset And Close Browser
+    Reset Citations
+    Close Browser

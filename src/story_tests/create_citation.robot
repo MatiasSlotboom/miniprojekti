@@ -54,7 +54,3 @@ Create Citation With Invalid Date
 Reset Citations And Go To Home Page
     Reset Citations
     Go To Home Page
-
-Reset And Close Browser
-    Reset Citations
-    Close Browser

@@ -42,6 +42,3 @@ Create Two Test Citations And Go To Home Page
     Create Two Test Citations
     Go To Home Page
 
-Reset And Close Browser
-    Reset Citations
-    Close Browser

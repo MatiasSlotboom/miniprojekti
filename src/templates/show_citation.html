@@ -39,7 +39,7 @@ Show citation
     <button id="delete-btn" type="submit" class="btn btn-danger">Delete</button>
   </form>
   <form action="{{ url_for('edit_citation', citation_id=citation.id) }}" method="get">
-    <button type="submit" class="btn btn-primary ms-2">Edit</button>
+    <button id="edit-btn" type="submit" class="btn btn-primary ms-2">Edit</button>
   </form>
   <button id="copy_bib_button" type="button" class="btn btn-primary ms-2" onclick="copyBibtex()">
     Copy to clipboard

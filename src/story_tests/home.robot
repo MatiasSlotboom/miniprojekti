@@ -30,7 +30,3 @@ Reset Citations Create Two Test Citations And Go To Home Page
     Reset Citations
     Create Two Test Citations
     Go To Home Page
-
-Reset And Close Browser
-    Reset Citations
-    Close Browser
