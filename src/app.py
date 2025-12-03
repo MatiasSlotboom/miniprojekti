@@ -123,7 +123,7 @@ def edit_citation(citation_id):
     if request.method == "GET":
         print("got citation:", citation, "for id:", citation_id)
         return render_template("edit_citation.html", citation=citation, citation_types = valid_citation_types)
-    
+
     if request.method == "POST":
         title = request.form.get("title")
         author = request.form.get("author")
@@ -137,6 +137,7 @@ def edit_citation(citation_id):
         except Exception as error:
             flash(str(error))
             return redirect("/edit_citation/" + str(citation_id))
+    return redirect("/")
 
 @app.route("/copy_bib_citation/<int:citation_id>")
 def copy_bib_citation(citation_id):
