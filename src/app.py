@@ -112,7 +112,27 @@ def copy_bib():
 @app.route("/show_citation/<int:citation_id>")
 def show_citation(citation_id):
     citation = get_citation(citation_id)
+    print("got citation:", citation, "for id:", citation_id)
     return render_template("show_citation.html", citation=citation)
+
+@app.route("/copy_bib_citation/<int:citation_id>")
+def copy_bib_citation(citation_id):
+    c = get_citation(citation_id)
+    safe_title = titlefixer(c.title)
+    key = f"{safe_title}-{c.date}-{c.id}"
+
+    entry = (
+        f"@misc{{{key},\n"
+        f"  title = {{{c.title}}},\n"
+        f"  author = {{{c.author}}},\n"
+        f"  year = {{{str(c.date)}}},\n"
+        f"}}"
+    )
+
+    return Response(
+        entry,
+        mimetype="text/plain"
+    )
 
 # testausta varten oleva reitti
 if test_env:

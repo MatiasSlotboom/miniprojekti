@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-Shwo citation
+Show citation
 {% endblock %}
 
 {% block body %}
@@ -26,12 +26,49 @@ Shwo citation
   <ul class="list-group list-group-flush">
     <li class="list-group-item"><strong>Title:</strong> {{ citation.title }}</li>
     <li class="list-group-item"><strong>Author:</strong> {{ citation.author }}</li>
-    <li class="list-group-item"><strong>Year:</strong> {{ citation.date.year }}</li>
+    <li class="list-group-item"><strong>Year:</strong> {{ citation.date }}</li>
   </ul>
 </div>
 
 <div class="mt-3">
   <a href="{{ url_for('index') }}" class="btn btn-secondary">Back</a>
+  <button id="copy_bib_button" type="button" class="btn btn-primary ms-2" onclick="copyBibtex()">
+    Copy to clipboard
+  </button>
 </div>
 
+<div id="copy-alert" class="mt-3"></div>
+
+<script>
+  async function copyBibtex() {
+    try {
+      const response = await fetch("/copy_bib_citation/{{ citation.id }}");
+      if (!response.ok) {
+        showCopyAlert("Failed to fetch BibTex content.");
+        return;
+      }
+
+      const text = await response.text();
+      await navigator.clipboard.writeText(text);
+
+      showCopyAlert("Bibtex copied to clipboard");      
+    } catch (err) {
+      console.error(err);
+      showCopyAlert("Copy to clipboard failed, browser stuff")
+    }
+  }
+
+  function showCopyAlert(message) {
+    const alertDiv = document.getElementById("copy-alert");
+    alertDiv.innerHTML = `
+      <div class="alert alert-primary" role="alert">
+        ${message}
+      </div>
+    `;
+
+    setTimeout(() => {
+      alertDiv.innerHTML = "";
+    }, 3000);
+  }
+</script>
 {% endblock %}
