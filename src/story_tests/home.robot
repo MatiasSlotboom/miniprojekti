@@ -19,13 +19,6 @@ Two Citations Show Up
 
     Page Should Contain  Testilähde2
 
-Delete Citation
-    Reset Citations Create Test Citation And Go To Home Page
-    Page Should Contain  Testilähde
-
-    Click Button  Delete
-    Page Should Not Contain  Testilähde
-
 *** Keywords ***
 
 Reset Citations Create Test Citation And Go To Home Page

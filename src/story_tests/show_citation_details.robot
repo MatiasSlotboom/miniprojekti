@@ -19,6 +19,15 @@ Navigate Back To Home Screen
     Click Link  Back
     Page Should Contain  Create new citation
 
+Delete Citation
+    Click Link    Testilähde
+    Page Should Contain    Details
+
+    Click Button    Delete
+    Handle Alert    ACCEPT
+
+    Page Should Not Contain    Testilähde
+
 *** Keywords ***
 
 Reset Citations Create Test Citation And Go To Home Page
