@@ -116,6 +116,12 @@ def show_citation(citation_id):
     print("got citation:", citation, "for id:", citation_id)
     return render_template("show_citation.html", citation=citation)
 
+@app.route("/edit_citation/<int:citation_id>")
+def edit_citation(citation_id):
+    citation = get_citation(citation_id)
+    print("got citation:", citation, "for id:", citation_id)
+    return render_template("edit_citation.html", citation=citation)
+
 @app.route("/copy_bib_citation/<int:citation_id>")
 def copy_bib_citation(citation_id):
     c = get_citation(citation_id)
