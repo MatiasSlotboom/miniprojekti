@@ -16,14 +16,17 @@ Click Citation Title
 Navigate Back To Home Screen
     Click Link  Testilähde
     Page Should Contain  Details
-    Click Link  Back
+    Scroll Element Into View    id=back-btn
+    Wait Until Element Is Visible    id=back-btn
+    Click Element    id=back-btn
     Page Should Contain  Create new citation
 
 Delete Citation
     Click Link    Testilähde
     Page Should Contain    Details
-
-    Click Button    Delete
+    Scroll Element Into View    id=delete-btn
+    Wait Until Element Is Visible    id=delete-btn
+    Click Button    delete-btn
     Handle Alert    ACCEPT
 
     Page Should Not Contain    Testilähde
