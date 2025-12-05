@@ -9,6 +9,7 @@ ${RESET_URL}  http://${SERVER}/reset_db
 ${CREATE_TEST_URL}  http://${SERVER}/create_test_citation
 ${CREATE_TWO_TESTS_URL}  http://${SERVER}/create_two_test_citations
 ${CREATE_NEW_URL}  http://${SERVER}/new_citation
+${CREATE_THIRTY_CITATIONS_URL}  http://${SERVER}/create_thirty_test_citations
 ${BROWSER}    chrome
 ${HEADLESS}   false
 
@@ -43,6 +44,9 @@ Create Test Citation
 
 Create Two Test Citations
     Go To  ${CREATE_TWO_TESTS_URL}
+
+Create Thirty Test Citations
+    Go To  ${CREATE_THIRTY_CITATIONS_URL}
 
 Create Citation Page Should Be Open
     Title Should Be  Create a new citation

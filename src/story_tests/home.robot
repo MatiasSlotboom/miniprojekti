@@ -1,5 +1,7 @@
 *** Settings ***
 Resource  resource.robot
+Library         SeleniumLibrary
+Library         Collections
 Suite Setup      Open And Configure Browser
 Suite Teardown   Reset And Close Browser
 Test Setup       Reset Citations Create Test Citation And Go To Home Page

@@ -10,28 +10,48 @@ Citation app
 
 <div id="copy-alert"></div>
 
+<div class="mb-3">
+  <label for="search-input" class="form-label mb-0">Search:</label>
+  <input type="text" id="search-input" class="form-control" placeholder="Search by title or year" onkeyup="filterCitations()">
+</div>
+
 <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Citations</th>
+      <th scope="col" class="sortable" onclick="sortBy('title')" style="cursor: pointer;">
+        Title <span id="sort-indicator-title"></span>
+      </th>
+      <th scope="col" class="sortable" onclick="sortBy('type')" style="cursor: pointer;">
+        Type <span id="sort-indicator-type"></span>
+      </th>
+      <th scope="col" class="sortable" onclick="sortBy('year')" style="cursor: pointer;">
+        Year <span id="sort-indicator-year"></span>
+      </th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="citations-tbody">
     {% for citation in citations|sort(attribute="id") %}
-      <tr class="table-active">
-        <th scope="row">{{ loop.index }}</th>
+      <tr class="table-active citation-row" 
+          data-id="{{ citation.id }}"
+          data-title="{{ citation.title }}"
+          data-author="{{ citation.author }}"
+          data-year="{{ citation.date }}"
+          data-type="{{ citation.type }}">
+        <th scope="row" class="row-index">{{ loop.index }}</th>
         <td>
           <a href="{{ url_for('show_citation', citation_id=citation.id) }}">
             {{ citation.title }}
           </a>
         </td>
+        <td>{{ citation.type }}</td>
+        <td>{{ citation.date }}</td>
       </tr>
     {% endfor %}
   </tbody>
 </table>
 
-<div class="d-flex justify-content-end mt-2">
+<div class="d-flex justify-content-end mt-2 mb-5">
   <button type="button" class="btn btn-primary" onclick="window.location.href='/new_citation'">
     Create new citation
   </button>
@@ -44,6 +64,89 @@ Citation app
 </div>
 
 <script>
+  let currentSortColumn = null;
+  let sortAscending = true;
+
+  function filterCitations() {
+    const searchValue = document.getElementById("search-input").value.toLowerCase();
+    const tbody = document.getElementById("citations-tbody");
+    const rows = Array.from(tbody.querySelectorAll(".citation-row"));
+
+    rows.forEach(row => {
+      const title = row.dataset.title.toLowerCase();
+      const year = row.dataset.year;
+      const matchesSearch = title.includes(searchValue) || year.includes(searchValue);
+      row.style.display = matchesSearch ? "" : "none";
+    });
+
+    updateRowIndices();
+  }
+
+  function sortBy(column) {
+    const tbody = document.getElementById("citations-tbody");
+    const rows = Array.from(tbody.querySelectorAll(".citation-row"));
+
+    if (currentSortColumn === column && sortAscending === false) {
+      currentSortColumn = null;
+      sortAscending = true;
+
+      rows.sort((a, b) => {
+        return parseInt(a.dataset.id, 10) - parseInt(b.dataset.id, 10);
+      });
+
+      rows.forEach(row => tbody.appendChild(row));
+      updateRowIndices();
+      updateSortIndicators(null);
+      return;
+    }
+
+    if (currentSortColumn === column) {
+      sortAscending = !sortAscending;
+    } else {
+      currentSortColumn = column;
+      sortAscending = true;
+    }
+
+    rows.sort((a, b) => {
+      let valA, valB;
+      if (column === "title") {
+        valA = a.dataset.title.toLowerCase();
+        valB = b.dataset.title.toLowerCase();
+        return sortAscending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+      } else if (column === "type") {
+        valA = a.dataset.type.toLowerCase();
+        valB = b.dataset.type.toLowerCase();
+        return sortAscending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+      } else if (column === "year") {
+        valA = parseInt(a.dataset.year, 10) || 0;
+        valB = parseInt(b.dataset.year, 10) || 0;
+        return sortAscending ? valA - valB : valB - valA;
+      }
+      return 0;
+    });
+
+    rows.forEach(row => tbody.appendChild(row));
+    updateRowIndices();
+    updateSortIndicators(column);
+  }
+
+  function updateRowIndices() {
+    const tbody = document.getElementById("citations-tbody");
+    const visibleRows = Array.from(tbody.querySelectorAll(".citation-row")).filter(row => row.style.display !== "none");
+    visibleRows.forEach((row, index) => {
+      row.querySelector(".row-index").textContent = index + 1;
+    });
+  }
+
+  function updateSortIndicators(column) {
+    document.getElementById("sort-indicator-title").textContent = "";
+    document.getElementById("sort-indicator-type").textContent = "";
+    document.getElementById("sort-indicator-year").textContent = "";
+
+    const indicator = sortAscending ? "▲" : "▼";
+    document.getElementById("sort-indicator-" + column).textContent = indicator;
+  }
+
   async function copyBibtex() {
     try {
       const response = await fetch("/copy_bib");
