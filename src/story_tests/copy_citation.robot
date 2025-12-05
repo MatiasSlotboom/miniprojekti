@@ -13,7 +13,9 @@ Copy Citations To Clipboard With One Citation Created
 
 Copy Citations To Clipboard With Two Citations Created
     Create Two Test Citations And Go To Home Page
-    Click Button  Copy to clipboard
+    Scroll Element Into View    id=copy_all_button
+    Wait Until Element Is Visible    id=copy_all_button
+    Click Button    copy_all_button
     Page Should Contain  Bibtex copied to clipboard
 
 Copy Citations To Clipboard With No Citations Created

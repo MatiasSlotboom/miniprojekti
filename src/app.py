@@ -176,3 +176,29 @@ if test_env:
         create_citation("Testilähde1", "Testitekijä1", "1901", "misc")
         create_citation("Testilähde2", "Testitekijä2", "1902", "misc")
         return redirect("/")
+
+    @app.route("/create_thirty_test_citations")
+    def create_thirty_test_citations():
+        titles = [
+            "Machine Learning Fundamentals", "Web Development Guide", "Data Science Basics",
+            "Python Programming", "JavaScript Mastery", "Database Design",
+            "Cloud Computing", "Artificial Intelligence", "Cybersecurity Handbook",
+            "Mobile App Development", "DevOps Practices", "Software Engineering",
+            "Network Administration", "System Architecture", "API Design",
+            "Frontend Development", "Backend Development", "Full Stack Guide",
+            "Agile Methodology", "Project Management", "Code Quality",
+            "Testing Strategies", "Performance Optimization", "Scalability Patterns",
+            "Microservices Architecture", "Container Technologies", "Serverless Computing",
+            "Blockchain Basics", "IoT Fundamentals", "Quantum Computing Intro"
+        ]
+        types = ['article', 'book', 'misc']
+        authors = ["Smith", "Johnson", "Williams", "Brown", "Jones"]
+
+        for i in range(30):
+            title = titles[i % len(titles)]
+            citation_type = types[i % len(types)]
+            author = authors[i % len(authors)]
+            year = str(2000 + (i % 25))
+            create_citation(title, author, year, citation_type)
+
+        return redirect("/")
