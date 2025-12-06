@@ -56,6 +56,14 @@ Select Options in Citation Types
     Select From List By Index  id=type  0
     Select From List By Label  id=type  Misc
 
+Navigate Back To Home Screen
+    Go To Create Citation Page
+    Page Should Contain  Create a new citation
+    Scroll Element Into View    id=back-btn
+    Wait Until Element Is Visible    id=back-btn
+    Click Element    id=back-btn
+    Page Should Contain  Create new citation
+
 *** Keywords ***
 
 Reset Citations And Go To Home Page

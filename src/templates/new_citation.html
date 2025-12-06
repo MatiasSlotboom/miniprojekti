@@ -32,7 +32,8 @@ Create a new citation
   <input id="date" type="text" name="date" maxlength="4" placeholder="Year" required>
   <div id="error_message" style="color: red; margin-top: 8px;"></div>
   <br>
-  <div class="d-flex justify-content-end mt-2">
+  <div class="d-flex justify-content-between mt-2">
+    <a id="back-btn" href="{{ url_for('index') }}" class="btn btn-secondary">Back</a>
     <button id="submit_button" class="btn btn-primary" type="submit" disabled>
       Add citation
     </button>
