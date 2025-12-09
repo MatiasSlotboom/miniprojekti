@@ -142,11 +142,23 @@ def edit_citation(citation_id):
         author = request.form.get("author")
         date = request.form.get("date")
         citation_type = request.form.get("type", "misc")
-        print(f"Received citation: {title}, {author}, {date}, {citation_type}")
+        journal = request.form.get("journal")
+        booktitle = request.form.get("booktitle")
+        publisher = request.form.get("publisher")
+        volume = request.form.get("volume")
+        number = request.form.get("number")
+        pages = request.form.get("pages")
+        editor = request.form.get("editor")
+        edition = request.form.get("edition")
+        institution = request.form.get("institution")
+        note = request.form.get("note")
+        print(f"Received citation: {title}, {author}, {date}, {citation_type}, {journal}, {booktitle}, {publisher}, {volume}, {number}, {pages}, {editor}, {edition}, {institution}, {note}")
 
         try:
             validate_citation(title, author, date, citation_type)
-            update_citation(citation_id, title, author, date, citation_type)
+            update_citation(citation_id, title, author, date, citation_type, journal=journal, booktitle=booktitle, publisher=publisher, volume=volume, 
+                    number=number, pages=pages, editor=editor, edition=edition, 
+                    institution=institution, note=note)
             return redirect("/")
         except Exception as error:
             flash(str(error))
