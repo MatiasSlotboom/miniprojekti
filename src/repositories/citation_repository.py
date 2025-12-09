@@ -10,14 +10,16 @@ def get_citations():
                                     pages, editor, edition, institution, note
                                     FROM citations"""))
     citations = result.fetchall()
-    return [Citation(citation[0], citation[1], citation[2], citation[3], citation[4], citation[5], citation[6], citation[7], citation[8], citation[9], citation[10], citation[11], citation[12], citation[13], citation[14]) for citation in citations]
+    return [Citation(citation[0], citation[1], citation[2], citation[3], citation[4], citation[5],
+                     citation[6], citation[7], citation[8], citation[9], citation[10], citation[11],
+                     citation[12], citation[13], citation[14]) for citation in citations]
 
-def create_citation(title, author, date_value, citation_type, 
-                    journal=None, booktitle=None, publisher=None, volume=None, 
-                    number=None, pages=None, editor=None, edition=None, 
+def create_citation(title, author, date_value, citation_type,
+                    journal=None, booktitle=None, publisher=None, volume=None,
+                    number=None, pages=None, editor=None, edition=None,
                     institution=None, note=None):
     sql = text("""INSERT INTO citations (title, author, date, type,
-                    journal, booktitle, publisher, volume, number, 
+                    journal, booktitle, publisher, volume, number,
                     pages, editor, edition, institution, note)
                     VALUES (:title, :author, :date, :type,
                     :journal, :booktitle, :publisher, :volume, :number,
@@ -40,9 +42,9 @@ def create_citation(title, author, date_value, citation_type,
     })
     db.session.commit()
 
-def update_citation(citation_id, title, author, date_value, citation_type, 
-                    journal=None, booktitle=None, publisher=None, volume=None, 
-                    number=None, pages=None, editor=None, edition=None, 
+def update_citation(citation_id, title, author, date_value, citation_type,
+                    journal=None, booktitle=None, publisher=None, volume=None,
+                    number=None, pages=None, editor=None, edition=None,
                     institution=None, note=None):
     sql = text("""UPDATE citations
                SET title = :title,
@@ -89,4 +91,6 @@ def get_citation(citation_id):
     sql = text("SELECT id, title, author, date, type, journal, booktitle, publisher, volume, number, pages, editor, edition, institution, note FROM citations WHERE id = :id")
     result = db.session.execute(sql, { "id": citation_id })
     citation = result.fetchone()
-    return Citation(citation[0], citation[1], citation[2], citation[3], citation[4], citation[5], citation[6], citation[7], citation[8], citation[9], citation[10], citation[11], citation[12], citation[13], citation[14])
+    return Citation(citation[0], citation[1], citation[2], citation[3], citation[4], citation[5],
+                    citation[6], citation[7], citation[8], citation[9], citation[10], citation[11],
+                    citation[12], citation[13], citation[14])

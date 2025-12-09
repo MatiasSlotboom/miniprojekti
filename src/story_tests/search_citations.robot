@@ -1,6 +1,5 @@
 *** Settings ***
 Resource  resource.robot
-Library         SeleniumLibrary
 Suite Setup      Open And Configure Browser
 Suite Teardown   Reset And Close Browser
 Test Setup       Reset Citations Create Thirty Test Citations And Go To Home Page
@@ -46,7 +45,7 @@ Search For
 Get Visible Citation Rows
     ${visible_rows}=    Get WebElements
     ...    xpath=//tr[contains(@class, 'citation-row') and not(contains(@style, 'display: none'))]
-    [Return]            ${visible_rows}
+    RETURN            ${visible_rows}
 
 Visible Citation Row Count Should Be
     [Arguments]    ${expected}

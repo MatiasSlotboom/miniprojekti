@@ -18,6 +18,8 @@ Create Valid Citation
     Input Text  locator=author  text=testi_author
     Input Text  locator=date  text=1945
     Element Should Be Enabled  id=submit_button
+    Scroll Element Into View    id=submit_button
+    Wait Until Element Is Visible    id=submit_button
     Click Button  Add citation
     Page Should Contain  testi_title
 

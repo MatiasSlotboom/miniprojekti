@@ -19,7 +19,10 @@ disable=raw-checker-failed,
         broad-exception-caught,
         too-few-public-methods,
         too-many-arguments,
-        too-many-positional-arguments
+        too-many-positional-arguments,
+        too-many-locals,
+        unused-argument
+
 
 [FORMAT]
 

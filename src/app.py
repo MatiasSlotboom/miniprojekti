@@ -67,16 +67,19 @@ def todo_creation():
     edition = request.form.get("edition")
     institution = request.form.get("institution")
     note = request.form.get("note")
-    print(f"Received citation: {title}, {author}, {date}, {citation_type}, {journal}, {booktitle}, {publisher}, {volume}, {number}, {pages}, {editor}, {edition}, {institution}, {note}")
+    print(f"""Received citation: {title}, {author}, {date}, {citation_type}, {journal}, {booktitle}, {publisher},
+           {volume}, {number}, {pages}, {editor}, {edition}, {institution}, {note}""")
 
     try:
         validate_citation(title, author, date, citation_type)
-        print(f"In the middle of citation: {title}, {author}, {date}, {citation_type}, {journal}, {booktitle}, {publisher}, {volume}, {number}, {pages}, {editor}, {edition}, {institution}, {note}")
-        create_citation(title, author, date, citation_type, 
-                    journal=journal, booktitle=booktitle, publisher=publisher, volume=volume, 
-                    number=number, pages=pages, editor=editor, edition=edition, 
+        print(f"""In the middle of citation: {title}, {author}, {date}, {citation_type}, {journal}, {booktitle}, {publisher},
+              {volume}, {number}, {pages}, {editor}, {edition}, {institution}, {note}""")
+        create_citation(title, author, date, citation_type,
+                    journal=journal, booktitle=booktitle, publisher=publisher, volume=volume,
+                    number=number, pages=pages, editor=editor, edition=edition,
                     institution=institution, note=note)
-        print(f"Created citation: {title}, {author}, {date}, {citation_type}, {journal}, {booktitle}, {publisher}, {volume}, {number}, {pages}, {editor}, {edition}, {institution}, {note}")
+        print(f"""Created citation: {title}, {author}, {date}, {citation_type}, {journal}, {booktitle}, {publisher},
+               {volume}, {number}, {pages}, {editor}, {edition}, {institution}, {note}""")
         return redirect("/")
     except Exception as error:
         flash(str(error))
@@ -152,12 +155,14 @@ def edit_citation(citation_id):
         edition = request.form.get("edition")
         institution = request.form.get("institution")
         note = request.form.get("note")
-        print(f"Received citation: {title}, {author}, {date}, {citation_type}, {journal}, {booktitle}, {publisher}, {volume}, {number}, {pages}, {editor}, {edition}, {institution}, {note}")
+        print(f"""Received citation: {title}, {author}, {date}, {citation_type}, {journal}, {booktitle}, {publisher},
+               {volume}, {number}, {pages}, {editor}, {edition}, {institution}, {note}""")
 
         try:
             validate_citation(title, author, date, citation_type)
-            update_citation(citation_id, title, author, date, citation_type, journal=journal, booktitle=booktitle, publisher=publisher, volume=volume, 
-                    number=number, pages=pages, editor=editor, edition=edition, 
+            update_citation(citation_id, title, author, date, citation_type, journal=journal,
+                    booktitle=booktitle, publisher=publisher, volume=volume,
+                    number=number, pages=pages, editor=editor, edition=edition,
                     institution=institution, note=note)
             return redirect("/")
         except Exception as error:

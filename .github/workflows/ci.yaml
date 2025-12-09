@@ -39,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Run pylint
-        run: poetry run pylint src
+        run: poetry run pylint src --fail-under=9.5
       - name: Run unit tests
         run: poetry run pytest src/tests
       - name: Run tests
