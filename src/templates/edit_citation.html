@@ -19,21 +19,31 @@ Edit citation
 {% endwith %}
 
 <form action="/edit_citation/{{ citation.id }}" method="post">
-  <label for="type">Type:</label>
-  <select id="type" name="type" required>
-    {% for citation_type in citation_types %}
-      <option value="{{ citation_type }}" {% if citation_type == citation.type %}selected{% endif %}>{{ citation_type|capitalize }}</option>
-    {% endfor %}
-  </select>
-  <br><br>
-  <label for="content">Citation:</label>
-  <input id="title" type="text" name="title" maxlength="200" value="{{ citation.title }}" required>
-  <input id="author" type="text" name="author" maxlength="100" value="{{ citation.author }}" required>
-  <input id="date" type="text" name="date" maxlength="4" value="{{ citation.date }}" required>
+  <div class="row g-2 mb-2">
+    <div class="col-md-3">
+      <select id="type" name="type" class="form-select form-select-sm" required>
+        {% for citation_type in citation_types %}
+          <option value="{{ citation_type }}" {% if citation_type == citation.type %}selected{% endif %}>{{ citation_type|capitalize }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-9">
+      <input id="title" type="text" name="title" class="form-control form-control-sm" maxlength="200" value="{{ citation.title }}" placeholder="Title" required>
+    </div>
+  </div>
+  <div class="row g-2 mb-2">
+    <div class="col-md-8">
+      <input id="author" type="text" name="author" class="form-control form-control-sm" maxlength="100" value="{{ citation.author }}" placeholder="Author" required>
+    </div>
+    <div class="col-md-4">
+      <input id="date" type="text" name="date" class="form-control form-control-sm" maxlength="4" value="{{ citation.date }}" placeholder="Year" required>
+    </div>
+  </div>
+
   <div id="error_message" style="color: red; margin-top: 8px;"></div>
   <br>
   <div class="d-flex justify-content-end mt-2">
-    <button id="submit_button" class="btn btn-primary" type="submit" disabled>
+    <button id="submit_button" class="btn btn-primary btn-sm" type="submit" disabled>
       Save changes
     </button>
   </div>
