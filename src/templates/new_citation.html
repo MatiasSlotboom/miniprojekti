@@ -33,18 +33,18 @@ Create a new citation
   </div>
 
   <div class="row g-2 mb-2">
-    <div class="col-md-5">
+    <div class="col-md-8">
       <input id="author" type="text" name="author" class="form-control form-control-sm" maxlength="100" placeholder="Author" required>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-4">
       <input id="date" type="text" name="date" class="form-control form-control-sm" maxlength="4" placeholder="Year" required>
-    </div>
-    <div class="col-md-5">
-      <input id="journal" type="text" name="journal" class="form-control form-control-sm" maxlength="100" placeholder="Journal">
     </div>
   </div>
 
   <div class="row g-2 mb-2">
+    <div class="col-md-4">
+      <input id="journal" type="text" name="journal" class="form-control form-control-sm" maxlength="100" placeholder="Journal">
+    </div>
     <div class="col-md-4">
       <input id="booktitle" type="text" name="booktitle" class="form-control form-control-sm" maxlength="100" placeholder="Booktitle">
     </div>
@@ -54,9 +54,9 @@ Create a new citation
     <div class="col-md-4">
       <input id="institution" type="text" name="institution" class="form-control form-control-sm" maxlength="100" placeholder="Institution">
     </div>
-  </div>
-
-  <div class="row g-2 mb-2">
+    <div class="col-md-4">
+      <input id="editor" type="text" name="editor" class="form-control form-control-sm" maxlength="100" placeholder="Editor">
+    </div>
     <div class="col-md-2">
       <input id="volume" type="text" name="volume" class="form-control form-control-sm" maxlength="20" placeholder="Volume">
     </div>
@@ -69,12 +69,6 @@ Create a new citation
     <div class="col-md-2">
       <input id="edition" type="text" name="edition" class="form-control form-control-sm" maxlength="20" placeholder="Edition">
     </div>
-    <div class="col-md-4">
-      <input id="editor" type="text" name="editor" class="form-control form-control-sm" maxlength="100" placeholder="Editor">
-    </div>
-  </div>
-
-  <div class="row g-2">
     <div class="col-md-12">
       <input id="note" type="text" name="note" class="form-control form-control-sm" maxlength="200" placeholder="Note">
     </div>
@@ -106,6 +100,38 @@ Create a new citation
   const note = document.getElementById("note");
   const button = document.getElementById("submit_button");
   const errorbox = document.getElementById("error_message")
+  const typeSelect = document.getElementById("type");
+
+  const allFields = [
+    'journal', 'booktitle', 'publisher', 'institution', 'editor', 
+    'volume', 'number', 'pages', 'edition', 'note'
+  ];
+
+  const fields = {
+    article: ['journal', 'volume', 'number', 'pages', 'note'],
+    book: ['booktitle', 'publisher', 'editor', 'edition', 'volume', 'number', 'pages', 'note'],
+    misc: allFields
+  }
+
+  function updateFields() {
+    const type = typeSelect.value;
+    const visibleFields = fields[type] || [];
+    
+    allFields.forEach(id => {
+      const element = document.getElementById(id);
+      if (element) {
+        const container = element.parentElement;
+        if (visibleFields.includes(id)) {
+          container.style.display = "";
+        } else {
+          container.style.display = "none";
+        }
+      }
+    });
+  }
+
+  typeSelect.addEventListener("change", updateFields);
+  updateFields();
 
   function validate() {
     const t = title.value.trim();

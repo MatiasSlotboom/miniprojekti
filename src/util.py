@@ -3,7 +3,7 @@ valid_citation_types = ['article', 'book', 'misc']
 class UserInputError(Exception):
     pass
 
-def validate_citation(title, author, date, citation_type):
+def validate_citation(title, author, date, citation_type, journal=None, booktitle=None, publisher=None, volume=None, number=None, pages=None, editor=None, edition=None, institution=None, note=None):
     if len(title) == 0 or len(author) == 0 or len(date) == 0:
         raise UserInputError("Citation fields cannot be empty")
     try:
