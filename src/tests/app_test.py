@@ -1,6 +1,8 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, ANY
 from app import app, titlefixer, bibselector, bibcontent
+from repositories.citation_repository import create_citation, get_citations, get_citation, update_citation
+from util import validate_citation
 
 class TestApp(unittest.TestCase):
     def setUp(self):
@@ -68,9 +70,11 @@ class TestApp(unittest.TestCase):
         response = self.client.get("/new_citation")
         self.assertEqual(response.status_code, 200)
     
+    @patch("app.get_citations")
     @patch("app.create_citation")
     @patch("app.validate_citation")
-    def test_create_citation(self, mock_validate, mock_create):
+    def test_create_citation(self, mock_validate, mock_create, mock_get_citations):
+        mock_get_citations.return_value = []
         data = {
             "title": "Test Title",
             "author": "Test Author",
@@ -99,9 +103,10 @@ class TestApp(unittest.TestCase):
         response = self.client.post("/create_citation", data=data, follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         
-    
+    @patch("app.get_citations")
     @patch("app.delete_citation")
-    def test_remove_citation_route(self, mock_delete):
+    def test_remove_citation_route(self, mock_delete, mock_get_citations):
+        mock_get_citations.return_value = []
         response = self.client.post("/remove_citation/1", follow_redirects=True)
         mock_delete.assert_called_once_with(1)
         self.assertEqual(response.status_code, 200)
@@ -133,10 +138,11 @@ class TestApp(unittest.TestCase):
         response = self.client.get("/show_citation/1")
         self.assertEqual(response.status_code, 200)
     
+    @patch("app.get_citations")
     @patch("app.get_citation")
     @patch("app.update_citation")
     @patch("app.validate_citation")
-    def test_edit_citation_post(self, mock_validate, mock_update, mock_get_citation):
+    def test_edit_citation(self, mock_validate, mock_update, mock_get_citation, mock_get_citations):
         citation_mock = MagicMock()
         citation_mock.id = 1
         citation_mock.title = "Test Title"
@@ -144,6 +150,7 @@ class TestApp(unittest.TestCase):
         citation_mock.date = 2015
         citation_mock.type = "misc"
         mock_get_citation.return_value = citation_mock
+        mock_get_citations.return_value = []
         data = {
             "title": "New Test Title",
             "author": "New Test Author",
