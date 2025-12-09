@@ -28,6 +28,33 @@ Show citation
     <li class="list-group-item"><strong>Type:</strong> {{ citation.type }}</li>
     <li class="list-group-item"><strong>Author:</strong> {{ citation.author }}</li>
     <li class="list-group-item"><strong>Year:</strong> {{ citation.date }}</li>
+    {% if citation.journal %}
+    <li class="list-group-item"><strong>Journal:</strong> {{ citation.journal }}</li>
+    {% endif %}
+    {% if citation.booktitle %}
+    <li class="list-group-item"><strong>Booktitle:</strong> {{ citation.booktitle }}</li>
+    {% endif %}
+    {% if citation.publisher %}
+    <li class="list-group-item"><strong>Publisher:</strong> {{ citation.publisher }}</li>
+    {% endif %}
+    {% if citation.institution %}
+    <li class="list-group-item"><strong>Institution:</strong> {{ citation.institution }}</li>
+    {% endif %}
+    {% if citation.editor %}
+    <li class="list-group-item"><strong>Editor:</strong> {{ citation.editor }}</li>
+    {% endif %}
+    {% if citation.volume %}
+    <li class="list-group-item"><strong>Volume:</strong> {{ citation.volume }}</li>
+    {% endif %}
+    {% if citation.number %}
+    <li class="list-group-item"><strong>Number:</strong> {{ citation.number }}</li>
+    {% endif %}
+    {% if citation.pages %}
+    <li class="list-group-item"><strong>Pages:</strong> {{ citation.pages }}</li>
+    {% endif %}
+    {% if citation.edition %}
+    <li class="list-group-item"><strong>Edition:</strong> {{ citation.edition }}</li>
+    {% endif %}
   </ul>
 </div>
 

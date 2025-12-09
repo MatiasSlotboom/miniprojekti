@@ -72,7 +72,10 @@ def todo_creation():
     try:
         validate_citation(title, author, date, citation_type)
         print(f"In the middle of citation: {title}, {author}, {date}, {citation_type}, {journal}, {booktitle}, {publisher}, {volume}, {number}, {pages}, {editor}, {edition}, {institution}, {note}")
-        create_citation(title, author, date, citation_type, journal, booktitle, publisher, volume, number, pages, editor, edition, institution, note)
+        create_citation(title, author, date, citation_type, 
+                    journal=journal, booktitle=booktitle, publisher=publisher, volume=volume, 
+                    number=number, pages=pages, editor=editor, edition=edition, 
+                    institution=institution, note=note)
         print(f"Created citation: {title}, {author}, {date}, {citation_type}, {journal}, {booktitle}, {publisher}, {volume}, {number}, {pages}, {editor}, {edition}, {institution}, {note}")
         return redirect("/")
     except Exception as error:
