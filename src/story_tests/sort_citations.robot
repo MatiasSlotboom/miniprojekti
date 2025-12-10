@@ -1,6 +1,5 @@
 *** Settings ***
 Resource  resource.robot
-Library         SeleniumLibrary
 Library         Collections
 Suite Setup      Open And Configure Browser
 Suite Teardown   Reset And Close Browser
@@ -21,24 +20,24 @@ Sort By Title Descending
 
 Sort By Year Ascending
     Sort Year Ascending
-    ${first_year}=  Get Text  xpath=//tbody[@id='citations-tbody']/tr[1]/td[3]
+    ${first_year}=  Get Text  xpath=//tbody[@id='citations-tbody']/tr[1]/td[4]
     Should Be Equal  ${first_year}  2000
 
 Sort By Year Descending
     Sort Year Ascending
     Sort Year Descending
-    ${first_year}=  Get Text  xpath=//tbody[@id='citations-tbody']/tr[1]/td[3]
+    ${first_year}=  Get Text  xpath=//tbody[@id='citations-tbody']/tr[1]/td[4]
     Should Be Equal  ${first_year}  2024
 
 Sort By Type Ascending
     Sort Type Ascending
-    ${first_type}=  Get Text  xpath=//tbody[@id='citations-tbody']/tr[1]/td[2]
+    ${first_type}=  Get Text  xpath=//tbody[@id='citations-tbody']/tr[1]/td[3]
     Should Be Equal  ${first_type}  article
 
 Sort By Type Descending
     Sort Type Ascending
     Sort Type Descending
-    ${first_type}=  Get Text  xpath=//tbody[@id='citations-tbody']/tr[1]/td[2]
+    ${first_type}=  Get Text  xpath=//tbody[@id='citations-tbody']/tr[1]/td[3]
     Should Be Equal  ${first_type}  misc
 
 Triple Click Resets Sort Order
