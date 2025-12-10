@@ -3,6 +3,7 @@ from sqlalchemy import text
 from config import db
 
 from entities.citation import Citation
+from entities.doi import DOI
 
 def get_citations():
     result = db.session.execute(text("""SELECT id, title, author, date, type,
@@ -94,3 +95,26 @@ def get_citation(citation_id):
     return Citation(citation[0], citation[1], citation[2], citation[3], citation[4], citation[5],
                     citation[6], citation[7], citation[8], citation[9], citation[10], citation[11],
                     citation[12], citation[13], citation[14])
+
+def get_doi(json):
+    id = json["message"]["DOI"]
+    title = ", ".join(json["message"]["title"])
+    author = ", ".join([f"{namedict["given"]} {namedict["family"]}" for namedict in json["message"]["author"]])
+    date = json["message"]["indexed"]["date-parts"][0][0]
+    if json["message"]["type"] == "edited-volume" or json["message"]["type"] == "edited-book":
+        type = "book"
+    elif json["message"]["type"] == "journal-article" or json["message"]["type"] == "book-chapter":
+        type = "article"
+    else:
+        type = "misc"
+    publisher = json["message"]["publisher"] if "publisher" in json["message"] else None
+    number = json["message"]["issue"] if "number" in json["message"] else None
+    pages = json["message"]["page"] if "page" in json["message"] else None
+    volume = json["message"]["volume"] if "volume" in json["message"] else None
+    journal = ", ".join(json["message"]["container-title"]) if "container-title" in json["message"] else None
+    booktitle = ", ".join(json["message"]["container-title"]) if "container-title" in json["message"] else None
+    institution = json["message"]["funder"]["name"] if "funder" in json["message"] else None
+    editor = None
+    edition = None
+
+    return DOI(id, title, author, date, type, journal, booktitle, publisher, volume, number, pages, editor, edition, institution)

@@ -2,7 +2,7 @@ import re
 import json
 from flask import redirect, render_template, request, jsonify, flash, Response
 from db_helper import reset_db
-from repositories.citation_repository import get_citations, create_citation, delete_citation, get_citation, update_citation
+from repositories.citation_repository import get_citations, create_citation, delete_citation, get_citation, update_citation, get_doi
 from config import app, test_env
 from util import validate_citation, valid_citation_types, validate_doi
 
@@ -59,6 +59,7 @@ def fill_with_doi():
     try:
         work = validate_doi(doi_address)
         print("validoitu !!")
+        print(get_doi(work.json()))
         return redirect("/new_citation")
 
     except Exception as error:
