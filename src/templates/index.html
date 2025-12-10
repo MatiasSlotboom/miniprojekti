@@ -15,9 +15,12 @@ Citation app
   <input type="text" id="search-input" class="form-control" placeholder="Search by title or year" onkeyup="filterCitations()">
 </div>
 
+<form id="download-form" action="{{ url_for('download_selected') }}" method="POST">
+
 <table class="table">
   <thead>
     <tr>
+      <th scope="col" style="width: 30px;"></th>
       <th scope="col">#</th>
       <th scope="col" class="sortable" onclick="sortBy('title')" style="cursor: pointer;">
         Title <span id="sort-indicator-title"></span>
@@ -30,20 +33,31 @@ Citation app
       </th>
     </tr>
   </thead>
+
   <tbody id="citations-tbody">
     {% for citation in citations|sort(attribute="id") %}
-      <tr class="table-active citation-row" 
+      <tr class="table-active citation-row"
           data-id="{{ citation.id }}"
           data-title="{{ citation.title }}"
           data-author="{{ citation.author }}"
           data-year="{{ citation.date }}"
           data-type="{{ citation.type }}">
+
+        <td>
+          <input class="form-check-input entry-checkbox"
+                 type="checkbox"
+                 name="selected"
+                 value="{{ citation.id }}">
+        </td>
+
         <th scope="row" class="row-index">{{ loop.index }}</th>
+
         <td>
           <a href="{{ url_for('show_citation', citation_id=citation.id) }}">
             {{ citation.title }}
           </a>
         </td>
+
         <td>{{ citation.type }}</td>
         <td>{{ citation.date }}</td>
       </tr>
@@ -52,16 +66,22 @@ Citation app
 </table>
 
 <div class="d-flex justify-content-end mt-2 mb-5">
+  
   <button type="button" class="btn btn-primary" onclick="window.location.href='/new_citation'">
     Create new citation
   </button>
-  <button type="button" class="btn btn-primary ms-2" onclick="window.location.href='/downloads'" {% if citations|length == 0 %} disabled {% endif %}>
+
+  <button id="download-btn" type="button" class="btn btn-success ms-2" onclick="handleDownload()">
     Download .bib
   </button>
-  <button id="copy_all_button" type="button" class="btn btn-primary ms-2" onclick="copyBibtex()" {% if citations|length == 0 %} disabled {% endif %}>
+
+  <button id="copy_all_button" type="button" class="btn btn-primary ms-2" 
+          onclick="copyBibtex()" {% if citations|length == 0 %} disabled {% endif %}>
     Copy to clipboard
   </button>
+
 </div>
+</form>
 
 <script>
   let currentSortColumn = null;
@@ -147,23 +167,35 @@ Citation app
     document.getElementById("sort-indicator-" + column).textContent = indicator;
   }
 
-  async function copyBibtex() {
-    try {
+async function copyBibtex() {
+  const checkboxes = document.querySelectorAll('.entry-checkbox');
+  const selected = Array.from(checkboxes)
+                        .filter(cb => cb.checked)
+                        .map(cb => cb.value);
+  try {
+    let text;
+    if (selected.length === 0) {
       const response = await fetch("/copy_bib");
-      if (!response.ok) {
-        showCopyAlert("Failed to fetch BibTex content.");
-        return;
-      }
+      text = await response.text();
+    } else {
+      const formData = new FormData();
+      selected.forEach(id => formData.append("selected", id));
 
-      const text = await response.text();
-      await navigator.clipboard.writeText(text);
-
-      showCopyAlert("Bibtex copied to clipboard");      
-    } catch (err) {
-      console.error(err);
-      showCopyAlert("Copy to clipboard failed, browser stuff")
+      const response = await fetch("/copy_selected", {
+        method: "POST",
+        body: formData
+      });
+      text = await response.text();
     }
+
+    await navigator.clipboard.writeText(text);
+    showCopyAlert("Bibtex copied to clipboard");
+  } catch (err) {
+    console.error(err);
+    showCopyAlert("Copy to clipboard failed");
   }
+}
+
 
   function showCopyAlert(message) {
     const alertDiv = document.getElementById("copy-alert");
@@ -178,5 +210,20 @@ Citation app
     }, 3000);
   }
 </script>
+<script>
+function handleDownload() {
+  const form = document.getElementById('download-form');
+  const checkboxes = document.querySelectorAll('.entry-checkbox');
+  const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+
+  if (anyChecked) {
+    form.action = "{{ url_for('download_selected') }}";
+    form.submit();
+  } else {
+    window.location.href = "{{ url_for('download_bib') }}";
+  }
+}
+</script>
+
 
 {% endblock %}
