@@ -18,6 +18,18 @@ Create a new citation
   {% endif %}
 {% endwith %}
 
+<form action="/fill_with_doi" method="post">
+  <div class="row g-2 mb-2">
+    <div class="col-md-6">
+      <input id="doi" type="text" name="doi" class="form-control form-control-sm" maxlength="100" placeholder="DOI">
+    
+      <button id="doi_button" class="btn btn-primary btn-sm" type="submit">
+        Fill with DOI
+      </button>
+    </div>
+  </div>
+</form>
+
 <form action="/create_citation" method="post">
   <div class="row g-2 mb-2">
     <div class="col-md-3">
@@ -27,7 +39,7 @@ Create a new citation
         {% endfor %}
       </select>
     </div>
-    <div class="col-md-9">
+  <div class="col-md-9">
       <input id="title" type="text" name="title" class="form-control form-control-sm" maxlength="200" placeholder="Title" required>
     </div>
   </div>
@@ -101,6 +113,7 @@ Create a new citation
   const button = document.getElementById("submit_button");
   const errorbox = document.getElementById("error_message")
   const typeSelect = document.getElementById("type");
+  const doi = document.getElementById("doi");
 
   const allFields = [
     'journal', 'booktitle', 'publisher', 'institution', 'editor', 

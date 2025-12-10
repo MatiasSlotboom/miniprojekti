@@ -1,10 +1,10 @@
 import re
-
+import json
 from flask import redirect, render_template, request, jsonify, flash, Response
 from db_helper import reset_db
 from repositories.citation_repository import get_citations, create_citation, delete_citation, get_citation, update_citation
 from config import app, test_env
-from util import validate_citation, valid_citation_types
+from util import validate_citation, valid_citation_types, validate_doi
 
 def titlefixer(title):
     title = re.sub(r'\s+', '_', title)
@@ -50,6 +50,20 @@ def index():
 @app.route("/new_citation")
 def new():
     return render_template("new_citation.html", citation_types=valid_citation_types)
+
+@app.route("/fill_with_doi", methods=["POST"])
+def fill_with_doi():
+    doi_address = request.form.get("doi")
+    print(doi_address)
+
+    try:
+        work = validate_doi(doi_address)
+        print("validoitu !!")
+        return redirect("/new_citation")
+
+    except Exception as error:
+        flash(str(error))
+        return redirect("/new_citation")
 
 @app.route("/create_citation", methods=["POST"])
 def todo_creation():
