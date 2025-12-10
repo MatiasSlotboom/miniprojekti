@@ -1,4 +1,5 @@
-class DOI:
+class DOI:  # pylint: disable=too-many-instance-attributes
+    # pylint: disable=too-many-locals
     def __init__(self, doi_id, title=None, author=None, date=None, citation_type=None,
                  journal=None, booktitle=None, publisher=None, volume=None,
                  number=None, pages=None, editor=None, edition=None,

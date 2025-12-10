@@ -18,7 +18,7 @@ Create a new citation
   {% endif %}
 {% endwith %}
 
-<form action="/fill_with_doi" method="post">
+<form id="doi-form">
   <div class="row g-2 mb-2">
     <div class="col-md-6">
       <input id="doi" type="text" name="doi" class="form-control form-control-sm" maxlength="100" placeholder="DOI">
@@ -174,5 +174,71 @@ Create a new citation
   date.addEventListener("input", validate);
 
   validate();
+
+  const doiForm = document.getElementById("doi-form");
+  const doiButton = document.getElementById("doi_button");
+  
+  doiForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const doiValue = doi.value.trim();
+    if (!doiValue) {
+      errorbox.textContent = "Please enter a DOI";
+      return;
+    }
+    
+    doiButton.disabled = true;
+    doiButton.textContent = "Loading...";
+    errorbox.textContent = "";
+    
+    try {
+      const formData = new FormData();
+      formData.append("doi", doiValue);
+      
+      const response = await fetch("/fill_with_doi", {
+        method: "POST",
+        body: formData
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        title.value = data.title || "";
+        author.value = data.author || "";
+        date.value = data.year || "";
+        
+        if (data.type && ['article', 'book', 'misc'].includes(data.type)) {
+          typeSelect.value = data.type;
+          updateFields();
+        }
+        
+        journal.value = data.journal || "";
+        booktitle.value = data.booktitle || "";
+        publisher.value = data.publisher || "";
+        volume.value = data.volume || "";
+        number.value = data.number || "";
+        pages.value = data.pages || "";
+        institution.value = data.institution || "";
+        
+        doi.value = "";
+        
+        validate();
+        
+        errorbox.style.color = "green";
+        errorbox.textContent = "DOI data loaded successfully!";
+        setTimeout(() => {
+          errorbox.textContent = "";
+          errorbox.style.color = "red";
+        }, 3000);
+      } else {
+        errorbox.textContent = data.error || "Failed to fetch DOI data";
+      }
+    } catch (error) {
+      errorbox.textContent = "Error fetching DOI data: " + error.message;
+    } finally {
+      doiButton.disabled = false;
+      doiButton.textContent = "Fill with DOI";
+    }
+  });
 </script>
 {% endblock %}

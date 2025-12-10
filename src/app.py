@@ -1,8 +1,7 @@
 import re
-import json
 from flask import redirect, render_template, request, jsonify, flash, Response
 from db_helper import reset_db
-from repositories.citation_repository import get_citations, create_citation, delete_citation, get_citation, update_citation, get_doi
+from repositories.citation_repository import get_citations, create_citation, delete_citation, get_citation, update_citation
 from config import app, test_env
 from util import validate_citation, valid_citation_types, validate_doi
 
@@ -54,17 +53,43 @@ def new():
 @app.route("/fill_with_doi", methods=["POST"])
 def fill_with_doi():
     doi_address = request.form.get("doi")
-    print(doi_address)
 
     try:
-        work = validate_doi(doi_address)
-        print("validoitu !!")
-        print(get_doi(work.json()))
-        return redirect("/new_citation")
+        metadata = validate_doi(doi_address)
+        raw_data = metadata.get('raw_data', {})
+
+        citation_type = 'misc'
+        if raw_data.get('type') in ['edited-volume', 'edited-book']:
+            citation_type = 'book'
+        elif raw_data.get('type') in ['journal-article', 'book-chapter']:
+            citation_type = 'article'
+
+        institution = ''
+        if 'funder' in raw_data:
+            funder = raw_data['funder']
+            if isinstance(funder, list) and len(funder) > 0:
+                institution = funder[0].get('name', '')
+            elif isinstance(funder, dict):
+                institution = funder.get('name', '')
+
+        result = {
+            'success': True,
+            'title': metadata.get('title', ''),
+            'author': metadata.get('author', ''),
+            'year': metadata.get('year', ''),
+            'type': citation_type,
+            'journal': ', '.join(raw_data.get('container-title', [])) if 'container-title' in raw_data else '',
+            'booktitle': ', '.join(raw_data.get('container-title', [])) if 'container-title' in raw_data else '',
+            'publisher': raw_data.get('publisher', ''),
+            'volume': raw_data.get('volume', ''),
+            'number': raw_data.get('issue', ''),
+            'pages': raw_data.get('page', ''),
+            'institution': institution
+        }
+        return jsonify(result)
 
     except Exception as error:
-        flash(str(error))
-        return redirect("/new_citation")
+        return jsonify({'success': False, 'error': str(error)}), 400
 
 @app.route("/create_citation", methods=["POST"])
 def todo_creation():
@@ -159,7 +184,7 @@ def show_citation(citation_id):
     return render_template("show_citation.html", citation=citation)
 
 @app.route("/edit_citation/<int:citation_id>", methods=["get", "post"])
-def edit_citation(citation_id):
+def edit_citation(citation_id): # pylint: disable=too-many-locals
     citation = get_citation(citation_id)
 
     if request.method == "GET":

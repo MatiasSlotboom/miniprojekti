@@ -21,7 +21,8 @@ disable=raw-checker-failed,
         too-many-arguments,
         too-many-positional-arguments,
         too-many-locals,
-        unused-argument
+        unused-argument,
+        duplicate-code
 
 
 [FORMAT]
