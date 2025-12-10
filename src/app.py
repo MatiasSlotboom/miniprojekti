@@ -140,6 +140,17 @@ def copy_bib():
         mimetype="text/plain",
     )
 
+@app.route("/copy_selected", methods=["POST"])
+def copy_selected():
+    selected = request.form.getlist("selected")
+    selected_ids = []
+    for item in selected:
+        selected_ids.extend(v.strip() for v in item.split(",") if v.strip())
+    entries = bibselector()
+    selected_entries = [e["text"] for e in entries if e["id"] in selected_ids]
+    output = "\n\n".join(selected_entries)
+    return Response(output, mimetype="text/plain")
+
 @app.route("/show_citation/<int:citation_id>")
 def show_citation(citation_id):
     citation = get_citation(citation_id)
