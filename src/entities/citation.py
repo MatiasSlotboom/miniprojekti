@@ -1,4 +1,5 @@
-class Citation:
+class Citation:  # pylint: disable=too-many-instance-attributes
+    # pylint: disable=too-many-locals
     def __init__(self, citation_id, title, author, date, citation_type,
                  journal=None, booktitle=None, publisher=None, volume=None,
                  number=None, pages=None, editor=None, edition=None,
