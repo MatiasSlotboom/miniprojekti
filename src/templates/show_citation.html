@@ -29,10 +29,14 @@ Show citation
     <li class="list-group-item"><strong>Author:</strong> {{ citation.author }}</li>
     <li class="list-group-item"><strong>Year:</strong> {{ citation.date }}</li>
     {% if citation.journal %}
-    <li class="list-group-item"><strong>Journal:</strong> {{ citation.journal }}</li>
+      {% if citation.type == "article" %}
+        <li class="list-group-item"><strong>Journal:</strong> {{ citation.journal }}</li>
+      {% endif %}
     {% endif %}
     {% if citation.booktitle %}
-    <li class="list-group-item"><strong>Booktitle:</strong> {{ citation.booktitle }}</li>
+      {% if citation.type == misc %}
+        <li class="list-group-item"><strong>Booktitle:</strong> {{ citation.booktitle }}</li>
+      {% endif %}
     {% endif %}
     {% if citation.publisher %}
     <li class="list-group-item"><strong>Publisher:</strong> {{ citation.publisher }}</li>
