@@ -1,3 +1,5 @@
+[![CI](https://github.com/MatiasSlotboom/miniprojekti/actions/workflows/ci.yaml/badge.svg)](https://github.com/MatiasSlotboom/miniprojekti/actions/workflows/ci.yaml)
+
 ## Ohtu miniprojekti
 
 ## Backlog
