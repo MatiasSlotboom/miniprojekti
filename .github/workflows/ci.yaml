@@ -43,7 +43,11 @@ jobs:
       - name: Run unit tests
         run: poetry run pytest src/tests
       - name: Run tests
-        run: poetry run coverage run --branch -m pytest
+        run: poetry run pytest --cov=src --cov-branch --cov-report=xml
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Setup chromedriver
         uses: nanasess/setup-chromedriver@master
       - run: |
