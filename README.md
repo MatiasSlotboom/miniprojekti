@@ -8,7 +8,7 @@ Product/Sprint Backlog löytyy täältä -> [backlog](https://docs.google.com/sp
 
 ## Raportti
 
-Miniprojektin raportti löytyy täältä -> [raportti](file:///home/user/Downloads/Win_matka_miniprojekti_raportti%20(1).pdf).
+Miniprojektin raportti löytyy täältä -> [raportti](https://www.overleaf.com/read/swjsbdknjpnb#94a189).
 
 ## Sovelluksen asennus- ja käyttöohje
 Lisää sovelluksen juureen .env-tiedosto, jonka sisältö on
