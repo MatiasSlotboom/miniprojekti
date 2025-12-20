@@ -6,6 +6,10 @@
 ## Backlog
 Product/Sprint Backlog löytyy täältä -> [backlog](https://docs.google.com/spreadsheets/d/1EQwYgxdFO3TrHe9c7N8aJtbnicHo_mB4gMRst7pz7TI/edit?gid=860632009#gid=860632009).
 
+## Raportti
+
+Miniprojektin raportti löytyy täältä -> [raportti](file:///home/user/Downloads/Win_matka_miniprojekti_raportti%20(1).pdf).
+
 ## Sovelluksen asennus- ja käyttöohje
 Lisää sovelluksen juureen .env-tiedosto, jonka sisältö on
 ```
